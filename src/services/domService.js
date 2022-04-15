@@ -9,10 +9,17 @@ export const CREATE_PIC_PAGE_LINK = document.getElementById(
 /***** pages ******/
 export const HOME_PAGE = document.getElementById("home-page");
 export const ABOUT_PAGE = document.getElementById("about-page");
+export const CREATE_PIC_PAGE = document.getElementById("create-pic-page");
+export const LOGIN_PAGE = document.getElementById("login-page");
+export const ERROR_PAGE = document.getElementById("error404-page");
 
-const fn = () => {};
+/***** Links ******/
+export const LINK_TO_HOME_PAGE = document.getElementById(
+  "return-to-home-page-link"
+);
 
-export default {
-  HOME_PAGE,
-  fn,
-};
+/***** slider ******/
+export const SLIDER_IMAGE = document.getElementById("slider-image");
+export const SLIDER_CREDITS = document.getElementById("slider-credits");
+export const SLIDER_PREV_BTN = document.getElementById("slider-prev-btn");
+export const SLIDER_NEXT_BTN = document.getElementById("slider-next-btn");
