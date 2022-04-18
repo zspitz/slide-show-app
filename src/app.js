@@ -18,7 +18,7 @@ import {
 import PAGES from "./models/pageModel.js";
 import { onChangePage } from "./routes/router.js";
 import { setCounter } from "./services/picService.js";
-import { render } from "./services/renderService.js";
+import { renderSlider } from "./components/renderSlider.js";
 import initialData from "./initialData/initialData.js";
 import {
   onClearCreatePicFields,
@@ -32,13 +32,13 @@ let counter = 0;
 let pictures = initialData().pictures;
 
 /********** אתחול התצוגה הראשונית **********/
-render(pictures);
+renderSlider(pictures);
 
 /********** הלוגיקה **********/
 // Slider
 const onChangeSliderPic = controller => {
   counter = setCounter(pictures, counter, controller);
-  render(pictures, counter);
+  renderSlider(pictures, counter);
 };
 
 // Form
@@ -46,13 +46,13 @@ const onSubmitPic = () => {
   pictures = onCreateNewPic(pictures);
   onClearCreatePicFields(SUBMIT_CREATE_PIC_BTN);
   onChangePage(PAGES.HOME);
-  render(pictures);
+  renderSlider(pictures);
 };
 
 const onCancelCreatePic = () => {
   onClearCreatePicFields(SUBMIT_CREATE_PIC_BTN);
   onChangePage(PAGES.HOME);
-  render(pictures);
+  renderSlider(pictures);
 };
 
 const onChangeInputField = (element, btn) => {
