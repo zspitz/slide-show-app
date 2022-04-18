@@ -11,7 +11,7 @@ export const HOME_PAGE = document.getElementById("home-page");
 export const ABOUT_PAGE = document.getElementById("about-page");
 export const CREATE_PIC_PAGE = document.getElementById("create-pic-page");
 export const LOGIN_PAGE = document.getElementById("login-page");
-export const ERROR_PAGE = document.getElementById("error404-page");
+export const ERROR_PAGE = document.getElementById("error-404-page");
 
 /***** Links ******/
 export const LINK_TO_HOME_PAGE = document.getElementById(

@@ -7,7 +7,7 @@ import {
   ERROR_PAGE,
 } from "../services/domService.js";
 
-export const onChangePage = (page) => {
+export const onChangePage = page => {
   HOME_PAGE.className = "d-none";
   ABOUT_PAGE.className = "d-none";
   CREATE_PIC_PAGE.className = "d-none";

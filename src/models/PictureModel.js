@@ -1,11 +1,13 @@
+import { randomNumBetween } from "../utils/algoMethods.js";
+
 class Picture {
   _id;
   url;
   alt;
   credits;
   createdAt;
-  constructor(picutre, array = []) {
-    const { url, alt, credits } = picutre;
+  constructor(picture, array = []) {
+    const { url, alt, credits } = picture;
     this.url = url;
     this.alt = alt;
     this.credits = credits;
@@ -13,19 +15,11 @@ class Picture {
     this.generateId(array);
   }
   generateId(array) {
-    const random = randomNum(10);
-    console.log(random);
-    const pic = array.findIndex(pic => {
-      return pic._id === random;
-    });
-    console.log(pic);
+    const random = randomNumBetween(1_000_000, 9_999_999);
+    const pic = array.findIndex(pic => pic._id === random);
     if (pic === -1) return (this._id = random);
     this.generateId(array);
   }
 }
 
 export default Picture;
-
-function randomNum(num) {
-  return Number((Math.random() * num).toFixed());
-}
