@@ -151,6 +151,55 @@
             <hr />
           </div>
         </div>
+
+        <div class="center">
+          <form class="form col-12 col-md-10 col-xl-8 border p-2 rounded">
+            <div>
+              <label for="url-field">url</label>
+              <input
+                class="form-control mb-2"
+                type="text"
+                name="url"
+                id="url-field"
+                minlength="2"
+              />
+              <span id="url-error-span" class="text-danger"></span>
+            </div>
+            <div>
+              <label for="alt-field">alt</label>
+              <input
+                class="form-control mb-2"
+                type="text"
+                name="alt"
+                id="alt-field"
+              />
+              <span id="alt-error-span" class="text-danger"></span>
+            </div>
+            <div>
+              <label for="credits-field">credit</label>
+              <input
+                class="form-control mb-2"
+                type="text"
+                name="credit"
+                id="credits-field"
+              />
+              <span id="credits-error-span" class="text-danger"></span>
+            </div>
+            <input
+              id="submit-create-pic-btn"
+              type="button"
+              value="Submit"
+              class="btn btn-primary col-12 mb-2"
+              disabled
+            />
+            <input
+              id="cancel-create-pic-btn"
+              type="button"
+              value="Cancel"
+              class="btn btn-danger col-12 mb-2"
+            />
+          </form>
+        </div>
       </div>
 
       <!-- דף התחברות -->

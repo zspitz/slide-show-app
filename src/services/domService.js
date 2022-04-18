@@ -23,3 +23,16 @@ export const SLIDER_IMAGE = document.getElementById("slider-image");
 export const SLIDER_CREDITS = document.getElementById("slider-credits");
 export const SLIDER_PREV_BTN = document.getElementById("slider-prev-btn");
 export const SLIDER_NEXT_BTN = document.getElementById("slider-next-btn");
+
+/***** create pic form ******/
+export const URL_CREATE_PIC_FIELD = document.getElementById("url-field");
+export const URL_CREATE_PIC_ERROR = document.getElementById("url-error-span");
+export const ALT_CREATE_PIC_FIELD = document.getElementById("alt-field");
+export const ALT_CREATE_PIC_ERROR = document.getElementById("alt-error-span");
+export const CREDIT_CREATE_PIC_FIELD = document.getElementById("credits-field");
+export const CREDIT_CREATE_PIC_ERROR =
+  document.getElementById("credits-error-span");
+export const SUBMIT_CREATE_PIC_BTN = document.getElementById(
+  "submit-create-pic-btn"
+);
+export const CANCELֹ_BTN = document.getElementById("cancel-create-pic-btn");
