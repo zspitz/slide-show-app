@@ -4,6 +4,7 @@ import {
   CREATE_PIC_PAGE_LINK,
   LOGIN_PAGE_LINK,
   LINK_TO_HOME_PAGE,
+  LINK_TO_CREATE_PIC_PAGE,
   SLIDER_PREV_BTN,
   SLIDER_NEXT_BTN,
   SUBMIT_CREATE_PIC_BTN,
@@ -14,9 +15,13 @@ import {
   URL_CREATE_PIC_ERROR,
   ALT_CREATE_PIC_ERROR,
   CREDIT_CREATE_PIC_ERROR,
+  TABLE_ICON,
+  SLIDER_ICON,
+  TABLE_BODY,
 } from "./services/domService.js";
+import DISPLAY from "./models/displayModel.js";
 import PAGES from "./models/pageModel.js";
-import { onChangePage } from "./routes/router.js";
+import { onChangePage, onChangeDisplayMode } from "./routes/router.js";
 import { setCounter } from "./services/picService.js";
 import { renderSlider } from "./components/renderSlider.js";
 import initialData from "./initialData/initialData.js";
@@ -26,13 +31,12 @@ import {
   onCheckErrors,
   onCreateNewPic,
 } from "./services/formService.js";
+import renderTable from "./components/renderTable.js";
 
 /********** יצירת משתנים גלובלים **********/
 let counter = 0;
+// let pictures = [];
 let pictures = initialData().pictures;
-
-/********** אתחול התצוגה הראשונית **********/
-renderSlider(pictures);
 
 /********** הלוגיקה **********/
 // Slider
@@ -61,6 +65,15 @@ const onChangeInputField = (element, btn) => {
   onCheckErrors(btn);
 };
 
+// Display Mode
+const handleDisplayMode = (arrayOfPic, display) => {
+  onChangeDisplayMode(arrayOfPic, display);
+  if (display === DISPLAY.TABLE) {
+    TABLE_BODY.innerHTML = "";
+    renderTable(arrayOfPic);
+  }
+};
+
 /********** האזנה לאירועים ***********/
 // ניתוב דפים
 HOME_PAGE_LINK.addEventListener("click", () => onChangePage(PAGES.HOME));
@@ -69,6 +82,11 @@ CREATE_PIC_PAGE_LINK.addEventListener("click", () =>
   onChangePage(PAGES.CREATE_PIC)
 );
 LOGIN_PAGE_LINK.addEventListener("click", () => onChangePage(PAGES.LOGIN));
+
+// לינקים לדפים
+LINK_TO_CREATE_PIC_PAGE.addEventListener("click", () =>
+  onChangePage(PAGES.CREATE_PIC)
+);
 LINK_TO_HOME_PAGE.addEventListener("click", () => onChangePage(PAGES.HOME));
 
 // מצגת תמונות
@@ -118,3 +136,16 @@ CREDIT_CREATE_PIC_FIELD.addEventListener("input", e =>
 // יצירת תמונה חדשה
 SUBMIT_CREATE_PIC_BTN.addEventListener("click", onSubmitPic);
 CANCELֹ_BTN.addEventListener("click", onCancelCreatePic);
+
+// בקרי תצוגה
+TABLE_ICON.addEventListener("click", () =>
+  handleDisplayMode(pictures, DISPLAY.TABLE)
+);
+SLIDER_ICON.addEventListener("click", () =>
+  handleDisplayMode(pictures, DISPLAY.SLIDER)
+);
+
+/********** אתחול התצוגה הראשונית **********/
+onChangePage(PAGES.HOME);
+onChangeDisplayMode(pictures, DISPLAY.SLIDER);
+onChangeSliderPic();

@@ -17,6 +17,9 @@ export const ERROR_PAGE = document.getElementById("error-404-page");
 export const LINK_TO_HOME_PAGE = document.getElementById(
   "return-to-home-page-link"
 );
+export const LINK_TO_CREATE_PIC_PAGE = document.getElementById(
+  "goto-create-pic-page-link"
+);
 
 /***** slider ******/
 export const SLIDER_IMAGE = document.getElementById("slider-image");
@@ -36,3 +39,16 @@ export const SUBMIT_CREATE_PIC_BTN = document.getElementById(
   "submit-create-pic-btn"
 );
 export const CANCELֹ_BTN = document.getElementById("cancel-create-pic-btn");
+
+/***** controllers *****/
+export const TABLE_ICON = document.getElementById("table-icon");
+export const SLIDER_ICON = document.getElementById("slider-icon");
+export const SORT_DOWN_ICON = document.getElementById("sort-down-icon");
+export const SORT_UP_ICON = document.getElementById("sort-up-icon");
+
+/***** display modes *****/
+export const NO_DATA_CONTAINER = document.getElementById("no-data-container");
+export const DATA_CONTAINER = document.getElementById("data-container");
+export const TABLE_DISPLAY_MODE = document.getElementById("table");
+export const SLIDER_DISPLAY_MODE = document.getElementById("slider");
+export const TABLE_BODY = document.getElementById("tbody");
