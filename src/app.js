@@ -94,7 +94,6 @@ SLIDER_PREV_BTN.addEventListener("click", () => onChangeSliderPic("prev"));
 SLIDER_NEXT_BTN.addEventListener("click", () => onChangeSliderPic("next"));
 
 // וולידציות על שדות של טפסים
-
 URL_CREATE_PIC_FIELD.addEventListener("input", e =>
   onChangeInputField(
     {
