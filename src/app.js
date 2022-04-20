@@ -71,7 +71,14 @@ const handleDisplayMode = (arrayOfPic, display) => {
   if (display === DISPLAY.TABLE) {
     TABLE_BODY.innerHTML = "";
     renderTable(arrayOfPic);
+    arrayOfPic.forEach(item => addOnDelete(item._id));
   }
+};
+
+// Delete Picture
+const handleDeletePic = id => {
+  pictures = pictures.filter(pic => pic._id !== id);
+  handleDisplayMode(pictures, DISPLAY.TABLE);
 };
 
 /********** האזנה לאירועים ***********/
@@ -143,6 +150,12 @@ TABLE_ICON.addEventListener("click", () =>
 SLIDER_ICON.addEventListener("click", () =>
   handleDisplayMode(pictures, DISPLAY.SLIDER)
 );
+
+// הוספת מאזין למחיקת תמונה
+const addOnDelete = id => {
+  const root = document.getElementById("delete" + id);
+  root.addEventListener("click", () => handleDeletePic(id));
+};
 
 /********** אתחול התצוגה הראשונית **********/
 onChangePage(PAGES.HOME);
