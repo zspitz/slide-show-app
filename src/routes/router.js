@@ -10,6 +10,7 @@ import {
   DATA_CONTAINER,
   TABLE_DISPLAY_MODE,
   SLIDER_DISPLAY_MODE,
+  CARDS_DISPLAY_MODE,
   EDIT_PIC_PAGE,
 } from "../services/domService.js";
 
@@ -36,6 +37,7 @@ export const onChangeDisplayMode = (pictures, display) => {
   DATA_CONTAINER.className = "d-none";
   TABLE_DISPLAY_MODE.className = "d-none";
   SLIDER_DISPLAY_MODE.className = "d-none";
+  CARDS_DISPLAY_MODE.className = "d-none";
 
   if (!pictures.length) return (NO_DATA_CONTAINER.className = "d-block");
   DATA_CONTAINER.className = "d-block";
@@ -43,4 +45,6 @@ export const onChangeDisplayMode = (pictures, display) => {
     return (SLIDER_DISPLAY_MODE.className = "d-block");
   if (display === DISPLAY.TABLE)
     return (TABLE_DISPLAY_MODE.className = "d-block");
+  if (display === DISPLAY.CARDS)
+    return (CARDS_DISPLAY_MODE.className = "d-block");
 };

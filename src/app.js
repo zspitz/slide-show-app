@@ -17,6 +17,7 @@ import {
   CREDIT_CREATE_PIC_ERROR,
   TABLE_ICON,
   SLIDER_ICON,
+  CARDS_ICON,
   TABLE_BODY,
   PRICE_CREATE_PIC_FIELD,
   PRICE_CREATE_PIC_ERROR,
@@ -31,6 +32,7 @@ import {
   PRICE_EDIT_PIC_ERROR,
   CANCELֹ_EDIT_BTN,
   EDIT_IMAGE_DISPLAY,
+  CARDS_CONTAINER,
 } from "./services/domService.js";
 import DISPLAY from "./models/displayModel.js";
 import PAGES from "./models/pageModel.js";
@@ -48,6 +50,7 @@ import {
   onEditPic,
 } from "./services/formService.js";
 import renderTable from "./components/renderTable.js";
+import renderCards from "./components/renderCards.js";
 
 /********** יצירת משתנים גלובלים **********/
 let counter = 0;
@@ -105,6 +108,13 @@ const handleDisplayMode = (arrayOfPic, display) => {
       addOnEditPic(item._id);
     });
   }
+  if (display === DISPLAY.CARDS) {
+    CARDS_CONTAINER.innerHTML = "";
+    renderCards(arrayOfPic);
+    arrayOfPic.forEach(item => {
+      addOnLikePic(item._id);
+    });
+  }
 };
 
 // Delete Picture
@@ -116,6 +126,10 @@ const handleDeletePic = id => {
 const handleEditPic = (page, array, id) => {
   onChangePage(page);
   mapToModel(array, id);
+};
+
+const handleLikePic = id => {
+  console.log("you liked pic num: " + id);
 };
 
 /********** האזנה לאירועים ***********/
@@ -259,6 +273,9 @@ TABLE_ICON.addEventListener("click", () =>
 SLIDER_ICON.addEventListener("click", () =>
   handleDisplayMode(pictures, DISPLAY.SLIDER)
 );
+CARDS_ICON.addEventListener("click", () =>
+  handleDisplayMode(pictures, DISPLAY.CARDS)
+);
 
 // הוספת מאזין למחיקת תמונה
 const addOnDelete = id => {
@@ -272,6 +289,12 @@ const addOnEditPic = id => {
   root.addEventListener("click", () =>
     handleEditPic(PAGES.EDIT_PIC, pictures, id)
   );
+};
+
+// הוספת מאזין לעריכת תמונה
+const addOnLikePic = id => {
+  const root = document.getElementById(`like${id}`);
+  root.addEventListener("click", () => handleLikePic(id));
 };
 
 /********** אתחול התצוגה הראשונית **********/

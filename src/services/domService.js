@@ -74,6 +74,7 @@ export const EDIT_IMAGE_DISPLAY = document.getElementById("edit-image-display");
 /***** controllers *****/
 export const TABLE_ICON = document.getElementById("table-icon");
 export const SLIDER_ICON = document.getElementById("slider-icon");
+export const CARDS_ICON = document.getElementById("cards-icon");
 export const SORT_DOWN_ICON = document.getElementById("sort-down-icon");
 export const SORT_UP_ICON = document.getElementById("sort-up-icon");
 
@@ -82,4 +83,6 @@ export const NO_DATA_CONTAINER = document.getElementById("no-data-container");
 export const DATA_CONTAINER = document.getElementById("data-container");
 export const TABLE_DISPLAY_MODE = document.getElementById("table");
 export const SLIDER_DISPLAY_MODE = document.getElementById("slider");
+export const CARDS_DISPLAY_MODE = document.getElementById("cards");
 export const TABLE_BODY = document.getElementById("tbody");
+export const CARDS_CONTAINER = document.getElementById("cards-container");
