@@ -12,6 +12,7 @@ export const ABOUT_PAGE = document.getElementById("about-page");
 export const CREATE_PIC_PAGE = document.getElementById("create-pic-page");
 export const LOGIN_PAGE = document.getElementById("login-page");
 export const ERROR_PAGE = document.getElementById("error-404-page");
+export const EDIT_PIC_PAGE = document.getElementById("edit-pic-page");
 
 /***** Links ******/
 export const LINK_TO_HOME_PAGE = document.getElementById(
@@ -35,10 +36,40 @@ export const ALT_CREATE_PIC_ERROR = document.getElementById("alt-error-span");
 export const CREDIT_CREATE_PIC_FIELD = document.getElementById("credits-field");
 export const CREDIT_CREATE_PIC_ERROR =
   document.getElementById("credits-error-span");
+export const PRICE_CREATE_PIC_FIELD = document.getElementById("price-field");
+export const PRICE_CREATE_PIC_ERROR =
+  document.getElementById("price-error-span");
 export const SUBMIT_CREATE_PIC_BTN = document.getElementById(
   "submit-create-pic-btn"
 );
 export const CANCELֹ_BTN = document.getElementById("cancel-create-pic-btn");
+
+/***** edit pic form ******/
+export const URL_EDIT_PIC_FIELD = document.getElementById("url-edit-pic-field");
+export const URL_EDIT_PIC_ERROR = document.getElementById(
+  "url-edit-pic-error-span"
+);
+export const ALT_EDIT_PIC_FIELD = document.getElementById("alt-edit-pic-field");
+export const ALT_EDIT_PIC_ERROR = document.getElementById(
+  "alt-edit-pic-error-span"
+);
+export const CREDIT_EDIT_PIC_FIELD = document.getElementById(
+  "credits-edit-pic-field"
+);
+export const CREDIT_EDIT_PIC_ERROR = document.getElementById(
+  "credits-edit-pic-error-span"
+);
+export const PRICE_EDIT_PIC_FIELD = document.getElementById(
+  "price-edit-pic-field"
+);
+export const PRICE_EDIT_PIC_ERROR = document.getElementById(
+  "price-edit-pic-error-span"
+);
+export const SUBMIT_EDIT_PIC_BTN = document.getElementById(
+  "submit-edit-pic-btn"
+);
+export const CANCELֹ_EDIT_BTN = document.getElementById("cancel-edit-pic-btn");
+export const EDIT_IMAGE_DISPLAY = document.getElementById("edit-image-display");
 
 /***** controllers *****/
 export const TABLE_ICON = document.getElementById("table-icon");

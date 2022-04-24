@@ -4,14 +4,16 @@ class Picture {
   #id;
   url;
   alt;
-  #createdAt;
   #createdBy;
+  #price;
+  #createdAt;
   likes = [];
   constructor(picture, array = []) {
-    const { url, alt, credits } = picture;
+    const { url, alt, credits, price } = picture;
     this.url = url;
     this.alt = alt;
     this.#createdBy = credits;
+    this.#price = price;
     this.#createdAt = new Date();
     this.generateId(array);
   }
@@ -32,6 +34,15 @@ class Picture {
   }
   get createdAt() {
     return this.#createdAt;
+  }
+  get price() {
+    return this.#price;
+  }
+  set price(price) {
+    this.#price = price;
+  }
+  set credits(credits) {
+    this.#createdBy = credits;
   }
 }
 

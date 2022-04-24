@@ -18,6 +18,19 @@ import {
   TABLE_ICON,
   SLIDER_ICON,
   TABLE_BODY,
+  PRICE_CREATE_PIC_FIELD,
+  PRICE_CREATE_PIC_ERROR,
+  URL_EDIT_PIC_FIELD,
+  ALT_EDIT_PIC_FIELD,
+  CREDIT_EDIT_PIC_FIELD,
+  PRICE_EDIT_PIC_FIELD,
+  SUBMIT_EDIT_PIC_BTN,
+  URL_EDIT_PIC_ERROR,
+  ALT_EDIT_PIC_ERROR,
+  CREDIT_EDIT_PIC_ERROR,
+  PRICE_EDIT_PIC_ERROR,
+  CANCELֹ_EDIT_BTN,
+  EDIT_IMAGE_DISPLAY,
 } from "./services/domService.js";
 import DISPLAY from "./models/displayModel.js";
 import PAGES from "./models/pageModel.js";
@@ -30,6 +43,9 @@ import {
   onValidateField,
   onCheckErrors,
   onCreateNewPic,
+  mapToModel,
+  onClearEditPicFields,
+  onEditPic,
 } from "./services/formService.js";
 import renderTable from "./components/renderTable.js";
 
@@ -46,23 +62,36 @@ const onChangeSliderPic = controller => {
 };
 
 // Form
-const onSubmitPic = () => {
-  pictures = onCreateNewPic(pictures);
-  onClearCreatePicFields(SUBMIT_CREATE_PIC_BTN);
-  onChangePage(PAGES.HOME);
-  renderSlider(pictures);
-};
-
-const onCancelCreatePic = () => {
-  onClearCreatePicFields(SUBMIT_CREATE_PIC_BTN);
-  onChangePage(PAGES.HOME);
-  renderSlider(pictures);
-};
-
 const onChangeInputField = (element, btn) => {
   const { input, errorSpan, validation } = element;
   onValidateField(input, errorSpan, validation);
   onCheckErrors(btn);
+};
+
+const onCancelCreatePic = btn => {
+  onClearCreatePicFields(btn);
+  onChangePage(PAGES.HOME);
+  renderSlider(pictures);
+};
+
+const onSubmitPic = () => {
+  pictures = onCreateNewPic(pictures);
+  onClearCreatePicFields(SUBMIT_CREATE_PIC_BTN);
+  onChangePage(PAGES.HOME);
+  handleDisplayMode(pictures, DISPLAY.TABLE);
+};
+
+const onCancelEditPic = btn => {
+  onClearEditPicFields(btn);
+  onChangePage(PAGES.HOME);
+  renderSlider(pictures);
+};
+
+const onSubmitEditPic = () => {
+  pictures = onEditPic(pictures);
+  onClearEditPicFields(SUBMIT_EDIT_PIC_BTN);
+  onChangePage(PAGES.HOME);
+  handleDisplayMode(pictures, DISPLAY.TABLE);
 };
 
 // Display Mode
@@ -71,7 +100,10 @@ const handleDisplayMode = (arrayOfPic, display) => {
   if (display === DISPLAY.TABLE) {
     TABLE_BODY.innerHTML = "";
     renderTable(arrayOfPic);
-    arrayOfPic.forEach(item => addOnDelete(item._id));
+    arrayOfPic.forEach(item => {
+      addOnDelete(item._id);
+      addOnEditPic(item._id);
+    });
   }
 };
 
@@ -79,6 +111,11 @@ const handleDisplayMode = (arrayOfPic, display) => {
 const handleDeletePic = id => {
   pictures = pictures.filter(pic => pic._id !== id);
   handleDisplayMode(pictures, DISPLAY.TABLE);
+};
+
+const handleEditPic = (page, array, id) => {
+  onChangePage(page);
+  mapToModel(array, id);
 };
 
 /********** האזנה לאירועים ***********/
@@ -101,6 +138,7 @@ SLIDER_PREV_BTN.addEventListener("click", () => onChangeSliderPic("prev"));
 SLIDER_NEXT_BTN.addEventListener("click", () => onChangeSliderPic("next"));
 
 // וולידציות על שדות של טפסים
+// יצירת תמונה
 URL_CREATE_PIC_FIELD.addEventListener("input", e =>
   onChangeInputField(
     {
@@ -139,9 +177,80 @@ CREDIT_CREATE_PIC_FIELD.addEventListener("input", e =>
   )
 );
 
-// יצירת תמונה חדשה
+PRICE_CREATE_PIC_FIELD.addEventListener("input", e =>
+  onChangeInputField(
+    {
+      input: e.target,
+      errorSpan: PRICE_CREATE_PIC_ERROR,
+      validation: { min: 1 },
+    },
+    SUBMIT_CREATE_PIC_BTN
+  )
+);
+
 SUBMIT_CREATE_PIC_BTN.addEventListener("click", onSubmitPic);
-CANCELֹ_BTN.addEventListener("click", onCancelCreatePic);
+CANCELֹ_BTN.addEventListener("click", () =>
+  onCancelCreatePic(SUBMIT_CREATE_PIC_BTN)
+);
+
+const handleUrlEditChange = e => {
+  onChangeInputField(
+    {
+      input: e.target,
+      errorSpan: URL_EDIT_PIC_ERROR,
+      validation: {
+        min: 10,
+        max: 256,
+        lowerCase: true,
+        regex: /^http[s]?\:\/\/.{1,}.(jpg|png|jpeg)$/g,
+      },
+    },
+    SUBMIT_EDIT_PIC_BTN
+  );
+  EDIT_IMAGE_DISPLAY.src = e.target.value;
+};
+
+// עריכת תמונה
+URL_EDIT_PIC_FIELD.addEventListener("input", e => handleUrlEditChange(e));
+
+ALT_EDIT_PIC_FIELD.addEventListener("input", e =>
+  onChangeInputField(
+    {
+      input: e.target,
+      errorSpan: ALT_EDIT_PIC_ERROR,
+      validation: { min: 2 },
+    },
+    SUBMIT_EDIT_PIC_BTN
+  )
+);
+
+CREDIT_EDIT_PIC_FIELD.addEventListener("input", e =>
+  onChangeInputField(
+    {
+      input: e.target,
+      errorSpan: CREDIT_EDIT_PIC_ERROR,
+      validation: { min: 2 },
+    },
+    SUBMIT_EDIT_PIC_BTN
+  )
+);
+
+PRICE_EDIT_PIC_FIELD.addEventListener("input", e =>
+  onChangeInputField(
+    {
+      input: e.target,
+      errorSpan: PRICE_EDIT_PIC_ERROR,
+      validation: { min: 1 },
+    },
+    SUBMIT_EDIT_PIC_BTN
+  )
+);
+
+// עריכת תמונה חדשה
+SUBMIT_EDIT_PIC_BTN.addEventListener("click", onSubmitEditPic);
+CANCELֹ_EDIT_BTN.addEventListener("click", () =>
+  onCancelEditPic(SUBMIT_EDIT_PIC_BTN)
+);
 
 // בקרי תצוגה
 TABLE_ICON.addEventListener("click", () =>
@@ -155,6 +264,14 @@ SLIDER_ICON.addEventListener("click", () =>
 const addOnDelete = id => {
   const root = document.getElementById("delete" + id);
   root.addEventListener("click", () => handleDeletePic(id));
+};
+
+// הוספת מאזין לעריכת תמונה
+const addOnEditPic = id => {
+  const root = document.getElementById(`edit${id}`);
+  root.addEventListener("click", () =>
+    handleEditPic(PAGES.EDIT_PIC, pictures, id)
+  );
 };
 
 /********** אתחול התצוגה הראשונית **********/

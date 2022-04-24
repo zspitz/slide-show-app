@@ -10,12 +10,14 @@ import {
   DATA_CONTAINER,
   TABLE_DISPLAY_MODE,
   SLIDER_DISPLAY_MODE,
+  EDIT_PIC_PAGE,
 } from "../services/domService.js";
 
 export const onChangePage = page => {
   HOME_PAGE.className = "d-none";
   ABOUT_PAGE.className = "d-none";
   CREATE_PIC_PAGE.className = "d-none";
+  EDIT_PIC_PAGE.className = "d-none";
   LOGIN_PAGE.className = "d-none";
   ERROR_PAGE.className = "d-none";
 
@@ -23,6 +25,7 @@ export const onChangePage = page => {
   if (page === PAGES.ABOUT) return (ABOUT_PAGE.className = "d-block");
   if (page === PAGES.CREATE_PIC) return (CREATE_PIC_PAGE.className = "d-block");
   if (page === PAGES.LOGIN) return (LOGIN_PAGE.className = "d-block");
+  if (page === PAGES.EDIT_PIC) return (EDIT_PIC_PAGE.className = "d-block");
 
   ERROR_PAGE.className = "d-block";
 };

@@ -210,7 +210,7 @@
         <!-- כותרות יצירת תמונה -->
         <div class="center mt-4">
           <div class="col-12 col-md-10 col-xl-8">
-            <h1 class="text-center display-4">CREATE PICTURE PAGE</h1>
+            <h1 class="text-center display-4">CREATE PICTURE FORM</h1>
             <h2 class="fs-5">Here you can add a new picture</h2>
             <hr />
           </div>
@@ -244,10 +244,20 @@
               <input
                 class="form-control mb-2"
                 type="text"
-                name="credit"
+                name="credits"
                 id="credits-field"
               />
               <span id="credits-error-span" class="text-danger"></span>
+            </div>
+            <div>
+              <label for="price-field">Price</label>
+              <input
+                class="form-control mb-2"
+                type="number"
+                name="price"
+                id="price-field"
+              />
+              <span id="price-error-span" class="text-danger"></span>
             </div>
             <input
               id="submit-create-pic-btn"
@@ -275,6 +285,88 @@
             <h2 class="fs-5">Login to add a new picture</h2>
             <hr />
           </div>
+        </div>
+      </div>
+
+      <!-- דף עריכת תמונה -->
+      <div id="edit-pic-page" class="d-block">
+        <!-- כותרות עריכת תמונה -->
+        <div class="center mt-4">
+          <div class="col-12 col-md-10 col-xl-8">
+            <h1 class="text-center display-4">EDIT PICTURE FORM</h1>
+            <h2 class="fs-5">Here you can edit the selected picture</h2>
+            <hr />
+          </div>
+        </div>
+
+        <div class="center">
+          <div class="form col-12 col-md-10 col-xl-8 border p-2 rounded mb-2">
+            <img
+              id="edit-image-display"
+              src="..."
+              alt="..."
+              class="img-fluid"
+            />
+          </div>
+        </div>
+
+        <div class="center">
+          <form class="form col-12 col-md-10 col-xl-8 border p-2 rounded">
+            <div>
+              <label for="url-edit-pic-field">Url</label>
+              <input
+                class="form-control mb-2"
+                type="text"
+                name="url"
+                id="url-edit-pic-field"
+                minlength="2"
+              />
+              <span id="url-edit-pic-error-span" class="text-danger"></span>
+            </div>
+            <div>
+              <label for="alt-edit-pic-field">Alt</label>
+              <input
+                class="form-control mb-2"
+                type="text"
+                name="alt"
+                id="alt-edit-pic-field"
+              />
+              <span id="alt-edit-pic-error-span" class="text-danger"></span>
+            </div>
+            <div>
+              <label for="credits-edit-pic-field">Credit</label>
+              <input
+                class="form-control mb-2"
+                type="text"
+                name="credit"
+                id="credits-edit-pic-field"
+              />
+              <span id="credits-edit-pic-error-span" class="text-danger"></span>
+            </div>
+            <div>
+              <label for="price-edit-pic-field">Price</label>
+              <input
+                class="form-control mb-2"
+                type="number"
+                name="credit"
+                id="price-edit-pic-field"
+              />
+              <span id="price-edit-pic-error-span" class="text-danger"></span>
+            </div>
+            <input
+              id="submit-edit-pic-btn"
+              type="button"
+              value="Submit"
+              class="btn btn-primary col-12 mb-2"
+              disabled
+            />
+            <input
+              id="cancel-edit-pic-btn"
+              type="button"
+              value="Cancel"
+              class="btn btn-danger col-12 mb-2"
+            />
+          </form>
         </div>
       </div>
 

@@ -10,7 +10,7 @@ export const renderTable = pictures => {
         <td>${url}</td>
         <td>${alt}</td>
         <td> ${credits}</td>
-        <td><i class="bi bi-pencil-square cursor"></i></td>
+        <td><i class="bi bi-pencil-square cursor" id="edit${_id}" ></i></td>
         <td><i class="bi bi-trash3-fill cursor" id="delete${_id}"></i></td>
         </tr>`;
   });
