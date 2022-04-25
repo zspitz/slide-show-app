@@ -33,6 +33,8 @@ import {
   CANCELֹ_EDIT_BTN,
   EDIT_IMAGE_DISPLAY,
   CARDS_CONTAINER,
+  SORT_DOWN_ICON,
+  SORT_UP_ICON,
 } from "./services/domService.js";
 import DISPLAY from "./models/displayModel.js";
 import PAGES from "./models/pageModel.js";
@@ -51,6 +53,10 @@ import {
 } from "./services/formService.js";
 import renderTable from "./components/renderTable.js";
 import renderCards from "./components/renderCards.js";
+import {
+  sortArrayOfObject,
+  sortReverseArrayOfObject,
+} from "./utils/algoMethods.js";
 
 /********** יצירת משתנים גלובלים **********/
 let counter = 0;
@@ -296,6 +302,17 @@ const addOnLikePic = id => {
   const root = document.getElementById(`like${id}`);
   root.addEventListener("click", () => handleLikePic(id));
 };
+
+// מיון תמונות
+SORT_DOWN_ICON.addEventListener("click", () => {
+  pictures = sortReverseArrayOfObject(pictures, "alt");
+  handleDisplayMode(pictures, DISPLAY.TABLE);
+});
+
+SORT_UP_ICON.addEventListener("click", () => {
+  pictures = sortArrayOfObject(pictures, "alt");
+  handleDisplayMode(pictures, DISPLAY.TABLE);
+});
 
 /********** אתחול התצוגה הראשונית **********/
 onChangePage(PAGES.HOME);
