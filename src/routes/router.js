@@ -12,6 +12,7 @@ import {
   SLIDER_DISPLAY_MODE,
   CARDS_DISPLAY_MODE,
   EDIT_PIC_PAGE,
+  SEARCH_BAR_CONTAINER,
 } from "../services/domService.js";
 
 export const onChangePage = page => {
@@ -38,13 +39,32 @@ export const onChangeDisplayMode = (pictures, display) => {
   TABLE_DISPLAY_MODE.className = "d-none";
   SLIDER_DISPLAY_MODE.className = "d-none";
   CARDS_DISPLAY_MODE.className = "d-none";
+  SEARCH_BAR_CONTAINER.className = "d-none";
 
-  if (!pictures.length) return (NO_DATA_CONTAINER.className = "d-block");
+  if (!pictures.length) {
+    NO_DATA_CONTAINER.className = "d-block";
+    return;
+  }
   DATA_CONTAINER.className = "d-block";
-  if (display === DISPLAY.SLIDER)
-    return (SLIDER_DISPLAY_MODE.className = "d-block");
-  if (display === DISPLAY.TABLE)
-    return (TABLE_DISPLAY_MODE.className = "d-block");
-  if (display === DISPLAY.CARDS)
-    return (CARDS_DISPLAY_MODE.className = "d-block");
+  if (display === DISPLAY.SLIDER) {
+    SLIDER_DISPLAY_MODE.className = "d-block";
+    return;
+  }
+  if (display === DISPLAY.TABLE) {
+    SEARCH_BAR_CONTAINER.className = "d-block";
+    TABLE_DISPLAY_MODE.className = "d-block";
+    return;
+  }
+  if (display === DISPLAY.CARDS) {
+    SEARCH_BAR_CONTAINER.className = "d-block";
+    CARDS_DISPLAY_MODE.className = "d-block";
+    return;
+  }
+};
+
+export const handleNoPictures = () => {
+  TABLE_DISPLAY_MODE.className = "d-none";
+  CARDS_DISPLAY_MODE.className = "d-none";
+  SEARCH_BAR_CONTAINER.className = "d-block";
+  NO_DATA_CONTAINER.className = "d-block";
 };

@@ -86,3 +86,5 @@ export const SLIDER_DISPLAY_MODE = document.getElementById("slider");
 export const CARDS_DISPLAY_MODE = document.getElementById("cards");
 export const TABLE_BODY = document.getElementById("tbody");
 export const CARDS_CONTAINER = document.getElementById("cards-container");
+export const SEARCH_BAR_CONTAINER = document.getElementById("search-container");
+export const SEARCH_BAR = document.getElementById("search-input");

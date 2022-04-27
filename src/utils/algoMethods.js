@@ -45,3 +45,11 @@ export function sortReverseArrayOfObject(array, key) {
     }),
   ];
 }
+
+export const filterArrayOfObjectsByTerm = (term, array, key) => {
+  const searchTerm = term.trim();
+  const arrayFiltered = array.filter(item => {
+    return item[key].toLowerCase().includes(searchTerm.toLowerCase());
+  });
+  return arrayFiltered;
+};

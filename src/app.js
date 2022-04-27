@@ -35,10 +35,16 @@ import {
   CARDS_CONTAINER,
   SORT_DOWN_ICON,
   SORT_UP_ICON,
+  SEARCH_BAR,
+  TABLE_DISPLAY_MODE,
 } from "./services/domService.js";
 import DISPLAY from "./models/displayModel.js";
 import PAGES from "./models/pageModel.js";
-import { onChangePage, onChangeDisplayMode } from "./routes/router.js";
+import {
+  onChangePage,
+  onChangeDisplayMode,
+  handleNoPictures,
+} from "./routes/router.js";
 import { setCounter } from "./services/picService.js";
 import { renderSlider } from "./components/renderSlider.js";
 import initialData from "./initialData/initialData.js";
@@ -54,20 +60,44 @@ import {
 import renderTable from "./components/renderTable.js";
 import renderCards from "./components/renderCards.js";
 import {
+  filterArrayOfObjectsByTerm,
   sortArrayOfObject,
   sortReverseArrayOfObject,
 } from "./utils/algoMethods.js";
 
 /********** יצירת משתנים גלובלים **********/
 let counter = 0;
-// let pictures = [];
 let pictures = initialData().pictures;
+let display;
 
 /********** הלוגיקה **********/
 // Slider
-const onChangeSliderPic = controller => {
+const handleSliderPicChange = (controller = "") => {
   counter = setCounter(pictures, counter, controller);
   renderSlider(pictures, counter);
+};
+
+// Display Mode
+const handleDisplayMode = (arrayOfPic, display) => {
+  onChangeDisplayMode(arrayOfPic, display);
+  if (display === DISPLAY.TABLE) {
+    TABLE_BODY.innerHTML = "";
+    renderTable(arrayOfPic);
+    arrayOfPic.forEach(item => {
+      addOnDelete(item._id);
+      addOnEditPic(item._id);
+    });
+    return display;
+  }
+  if (display === DISPLAY.CARDS) {
+    CARDS_CONTAINER.innerHTML = "";
+    renderCards(arrayOfPic);
+    arrayOfPic.forEach(item => {
+      addOnLikePic(item._id);
+    });
+    return display;
+  }
+  return display;
 };
 
 // Form
@@ -87,7 +117,8 @@ const onSubmitPic = () => {
   pictures = onCreateNewPic(pictures);
   onClearCreatePicFields(SUBMIT_CREATE_PIC_BTN);
   onChangePage(PAGES.HOME);
-  handleDisplayMode(pictures, DISPLAY.TABLE);
+  display = handleDisplayMode(pictures, DISPLAY.TABLE);
+  return;
 };
 
 const onCancelEditPic = btn => {
@@ -100,40 +131,31 @@ const onSubmitEditPic = () => {
   pictures = onEditPic(pictures);
   onClearEditPicFields(SUBMIT_EDIT_PIC_BTN);
   onChangePage(PAGES.HOME);
-  handleDisplayMode(pictures, DISPLAY.TABLE);
-};
-
-// Display Mode
-const handleDisplayMode = (arrayOfPic, display) => {
-  onChangeDisplayMode(arrayOfPic, display);
-  if (display === DISPLAY.TABLE) {
-    TABLE_BODY.innerHTML = "";
-    renderTable(arrayOfPic);
-    arrayOfPic.forEach(item => {
-      addOnDelete(item._id);
-      addOnEditPic(item._id);
-    });
-  }
-  if (display === DISPLAY.CARDS) {
-    CARDS_CONTAINER.innerHTML = "";
-    renderCards(arrayOfPic);
-    arrayOfPic.forEach(item => {
-      addOnLikePic(item._id);
-    });
-  }
+  display = handleDisplayMode(pictures, DISPLAY.TABLE);
 };
 
 // Delete Picture
 const handleDeletePic = id => {
   pictures = pictures.filter(pic => pic._id !== id);
-  handleDisplayMode(pictures, DISPLAY.TABLE);
+  display = handleDisplayMode(pictures, DISPLAY.TABLE);
 };
 
+// Edit Picture
 const handleEditPic = (page, array, id) => {
   onChangePage(page);
   mapToModel(array, id);
 };
 
+// filter pictures
+const handleFilterPictures = e => {
+  const newPictures = filterArrayOfObjectsByTerm(e, [...pictures], "alt");
+  if (!newPictures.length) return handleNoPictures();
+  if (display === DISPLAY.TABLE)
+    return (display = handleDisplayMode(newPictures, DISPLAY.TABLE));
+  display = handleDisplayMode(newPictures, DISPLAY.CARDS);
+};
+
+// like picture
 const handleLikePic = id => {
   console.log("you liked pic num: " + id);
 };
@@ -154,8 +176,8 @@ LINK_TO_CREATE_PIC_PAGE.addEventListener("click", () =>
 LINK_TO_HOME_PAGE.addEventListener("click", () => onChangePage(PAGES.HOME));
 
 // מצגת תמונות
-SLIDER_PREV_BTN.addEventListener("click", () => onChangeSliderPic("prev"));
-SLIDER_NEXT_BTN.addEventListener("click", () => onChangeSliderPic("next"));
+SLIDER_PREV_BTN.addEventListener("click", () => handleSliderPicChange("prev"));
+SLIDER_NEXT_BTN.addEventListener("click", () => handleSliderPicChange("next"));
 
 // וולידציות על שדות של טפסים
 // יצירת תמונה
@@ -273,14 +295,17 @@ CANCELֹ_EDIT_BTN.addEventListener("click", () =>
 );
 
 // בקרי תצוגה
-TABLE_ICON.addEventListener("click", () =>
-  handleDisplayMode(pictures, DISPLAY.TABLE)
+TABLE_ICON.addEventListener(
+  "click",
+  () => (display = handleDisplayMode(pictures, DISPLAY.TABLE))
 );
-SLIDER_ICON.addEventListener("click", () =>
-  handleDisplayMode(pictures, DISPLAY.SLIDER)
+SLIDER_ICON.addEventListener(
+  "click",
+  () => (display = handleDisplayMode(pictures, DISPLAY.SLIDER))
 );
-CARDS_ICON.addEventListener("click", () =>
-  handleDisplayMode(pictures, DISPLAY.CARDS)
+CARDS_ICON.addEventListener(
+  "click",
+  () => (display = handleDisplayMode(pictures, DISPLAY.CARDS))
 );
 
 // הוספת מאזין למחיקת תמונה
@@ -306,15 +331,18 @@ const addOnLikePic = id => {
 // מיון תמונות
 SORT_DOWN_ICON.addEventListener("click", () => {
   pictures = sortReverseArrayOfObject(pictures, "alt");
-  handleDisplayMode(pictures, DISPLAY.TABLE);
+  display = handleDisplayMode(pictures, DISPLAY.TABLE);
 });
 
 SORT_UP_ICON.addEventListener("click", () => {
   pictures = sortArrayOfObject(pictures, "alt");
-  handleDisplayMode(pictures, DISPLAY.TABLE);
+  display = handleDisplayMode(pictures, DISPLAY.TABLE);
 });
+
+// שדה חיפוש
+SEARCH_BAR.addEventListener("input", e => handleFilterPictures(e.target.value));
 
 /********** אתחול התצוגה הראשונית **********/
 onChangePage(PAGES.HOME);
 onChangeDisplayMode(pictures, DISPLAY.SLIDER);
-onChangeSliderPic();
+handleSliderPicChange();
