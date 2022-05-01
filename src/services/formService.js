@@ -142,6 +142,7 @@ export const onEditPic = array => {
 
 export const mapToModel = (array, _id) => {
   const pic = array.find(pic => pic._id === _id);
+  if (!pic) return null;
   const { url, alt, credits, price } = pic;
   URL_EDIT_PIC_FIELD.value = url;
   ALT_EDIT_PIC_FIELD.value = alt;

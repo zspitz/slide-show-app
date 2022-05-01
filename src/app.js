@@ -288,11 +288,11 @@ PRICE_EDIT_PIC_FIELD.addEventListener("input", e =>
   )
 );
 
-// עריכת תמונה חדשה
-SUBMIT_EDIT_PIC_BTN.addEventListener("click", onSubmitEditPic);
+// עריכת תמונה
 CANCELֹ_EDIT_BTN.addEventListener("click", () =>
   onCancelEditPic(SUBMIT_EDIT_PIC_BTN)
 );
+SUBMIT_EDIT_PIC_BTN.addEventListener("click", onSubmitEditPic);
 
 // בקרי תצוגה
 TABLE_ICON.addEventListener(
@@ -331,12 +331,12 @@ const addOnLikePic = id => {
 // מיון תמונות
 SORT_DOWN_ICON.addEventListener("click", () => {
   pictures = sortReverseArrayOfObject(pictures, "alt");
-  display = handleDisplayMode(pictures, DISPLAY.TABLE);
+  display = handleDisplayMode(pictures, display);
 });
 
 SORT_UP_ICON.addEventListener("click", () => {
   pictures = sortArrayOfObject(pictures, "alt");
-  display = handleDisplayMode(pictures, DISPLAY.TABLE);
+  display = handleDisplayMode(pictures, display);
 });
 
 // שדה חיפוש
