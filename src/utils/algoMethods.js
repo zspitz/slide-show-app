@@ -53,3 +53,8 @@ export const filterArrayOfObjectsByTerm = (term, array, key) => {
   });
   return arrayFiltered;
 };
+
+export const makeFirstLetterCapital = string => {
+  const term = string.toLowerCase();
+  return term.charAt(0).toUpperCase() + term.slice(1);
+};

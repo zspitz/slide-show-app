@@ -1,4 +1,5 @@
 import Picture from "./../models/PictureModel.js";
+import User from "./../models/userModel.js";
 
 const initialData = () => {
   const data = {
@@ -22,12 +23,66 @@ const initialData = () => {
         price: 5_000,
       },
     ],
+    users: [
+      {
+        name: { first: "regular", last: "user" },
+        address: {
+          state: "USA",
+          country: "big",
+          city: "New York",
+          street: "52",
+          houseNumber: "109",
+          zip: 562145,
+        },
+        phone: "050-0000000",
+        email: "user@gmail.com",
+        password: "Aa1234!",
+        isBusiness: false,
+      },
+      {
+        name: { first: "bUsiness", last: "user" },
+        address: {
+          state: "USA",
+          country: "cal",
+          city: "New Jersey",
+          street: "bird",
+          houseNumber: "54",
+          zip: 123456,
+        },
+        phone: "050-0000000",
+        email: "business@gmail.com",
+        password: "Aa1234!",
+        isBusiness: true,
+        isAdmin: false,
+      },
+      {
+        name: { first: "admin", last: "user" },
+        address: {
+          state: "Israel",
+          country: "Israel",
+          city: "Tel Aviv",
+          street: "",
+          houseNumber: "",
+          zip: 0,
+        },
+        phone: "050-0000000",
+        email: "admin@gmail.com",
+        password: "Aa1234!",
+        isBusiness: true,
+        isAdmin: true,
+      },
+    ],
   };
 
   const pictures = data.pictures.map((picture, index, pictures) => {
     return new Picture(picture, pictures);
   });
-  return { pictures };
+
+  const users = data.users.map((user, index, users) => {
+    return new User(user, users);
+  });
+
+  return { pictures, users };
 };
 
 export default initialData;

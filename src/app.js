@@ -68,7 +68,10 @@ import {
 /********** יצירת משתנים גלובלים **********/
 let counter = 0;
 let pictures = initialData().pictures;
+let users = initialData().users;
 let display;
+
+console.log(users);
 
 /********** הלוגיקה **********/
 // Slider
