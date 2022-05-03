@@ -58,3 +58,10 @@ export const makeFirstLetterCapital = string => {
   const term = string.toLowerCase();
   return term.charAt(0).toUpperCase() + term.slice(1);
 };
+
+export const generateUniqNumber = (array, key) => {
+  const random = randomNumBetween(1_000_000, 9_999_999);
+  const pic = array.findIndex(pic => pic[key] === random);
+  if (pic === -1) return random;
+  generateId(array, key);
+};

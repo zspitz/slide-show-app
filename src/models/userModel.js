@@ -1,12 +1,19 @@
 import {
   makeFirstLetterCapital,
-  randomNumBetween,
+  generateUniqNumber,
 } from "../utils/algoMethods.js";
 
 class User {
   #id;
   #name;
-  address;
+  address = {
+    state: "",
+    country: "",
+    city: "",
+    street: "",
+    houseNum: 0,
+    zip: "",
+  };
   phone;
   #email;
   #password;
@@ -14,7 +21,7 @@ class User {
   #isAdmin;
   #isBusiness;
 
-  constructor(user, array = []) {
+  constructor(user, users = []) {
     const {
       name,
       address,
@@ -24,10 +31,8 @@ class User {
       isBusiness,
       isAdmin = false,
     } = user;
-    const { first, last } = name;
-    // const {state, country, city, street, houseNumber, zip} = address;
-    this.#id = this.generateId(array);
-    this.#name = this.setName(first, last);
+    this.#id = generateUniqNumber(users, "_id");
+    this.#name = this.setName(name);
     this.address = address;
     this.phone = this.checkPhone(phone);
     this.#email = this.checkEmail(email);
@@ -43,7 +48,8 @@ class User {
     if (pic === -1) return (this.#id = random);
     this.generateId(array);
   }
-  setName(first, last) {
+
+  setName({ first, last }) {
     const firstName = makeFirstLetterCapital(first);
     const lastName = makeFirstLetterCapital(last);
     return `${firstName} ${lastName}`;
