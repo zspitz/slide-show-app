@@ -64,7 +64,7 @@ class User {
     if (
       password.match(
         /((?=.*\d{1})(?=.*[A-Z]{1})(?=.*[a-z]{1})(?=.*[!@#$%^&*-]{1}).{7,20})/g
-      ) == undefined
+      ) === null
     )
       throw new Error(
         "The password must contain at least one uppercase letter in English. One lowercase letter in English. Four numbers and one of the following special characters !@#$%^&*-"
@@ -73,13 +73,16 @@ class User {
   }
 
   checkPhone(phoneNumber) {
-    if (phoneNumber.match(/0[0-9]{1,2}\-?\s?[0-9]{3}\s?[0-9]{4}/) == undefined)
+    if (
+      phoneNumber.match(/^0[0-9]{1,2}(\-?|\s?)[0-9]{3}(\-?|\s?)[0-9]{4}/g) ===
+      null
+    )
       throw new Error("Please enter a standard phone number");
     return phoneNumber;
   }
 
   checkEmail(email) {
-    if (email.match(/.+@.+\..+/i) == undefined)
+    if (email.match(/.+@.+\..{2,}/g) === null)
       throw new Error("Please enter a standard email");
     return email;
   }

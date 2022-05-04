@@ -27,7 +27,7 @@ let id;
 export const validateTerm = (field, validation) => {
   let errors = [];
   const {
-    regex = undefined,
+    regex = null,
     min = 0,
     max = 1_000_000_000,
     upperCase = null,
@@ -40,15 +40,15 @@ export const validateTerm = (field, validation) => {
   if (input.length > +max)
     errors.push(`This field cannot contain more than ${max} characters`);
   if (upperCase) {
-    if (input.match(/[A-Z]/g) == undefined)
+    if (input.match(/[A-Z]/g) === null)
       errors.push(`This field must have at least one uppercase letter`);
   }
   if (lowerCase) {
-    if (input.match(/[a-z]/g) == undefined)
+    if (input.match(/[a-z]/g) === null)
       errors.push(`This field must have at least one lowercase letter`);
   }
   if (regex) {
-    if (input.match(regex) == undefined)
+    if (input.match(regex) === null)
       errors.push(
         `The field must contain the following regulatory expression: ${regex}`
       );
