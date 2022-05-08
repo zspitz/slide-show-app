@@ -37,20 +37,7 @@ const { onChangeInputField } = useForm({});
 
 /********** create user **********/
 const createUserListeners = () => {
-  const schema = [
-    "first",
-    "last",
-    "state",
-    "country",
-    "city",
-    "street",
-    "house",
-    "zip",
-    "email",
-    "phone",
-    "password",
-    "passwordReEnter",
-  ];
+  const schema = ["first", "last", "email", "password", "passwordReEnter"];
 
   FIRST_SIGNUP_FIELD.addEventListener("input", e =>
     onChangeInputField(
@@ -260,14 +247,14 @@ export const onCreateNewUser = array => {
       last: LAST_SIGNUP_FIELD.value,
     },
     address: {
-      state: STATE_SIGNUP_FIELD.value,
-      country: COUNTRY_SIGNUP_FIELD.value,
-      city: CITY_SIGNUP_FIELD.value,
-      street: STREET_SIGNUP_FIELD.value,
-      houseNum: HOUSE_SIGNUP_FIELD.value,
-      zip: ZIP_SIGNUP_FIELD.value,
+      state: STATE_SIGNUP_FIELD.value ? STATE_SIGNUP_FIELD.value : "",
+      country: COUNTRY_SIGNUP_FIELD.value ? COUNTRY_SIGNUP_FIELD.value : "",
+      city: CITY_SIGNUP_FIELD.value ? CITY_SIGNUP_FIELD.value : "",
+      street: STREET_SIGNUP_FIELD.value ? STREET_SIGNUP_FIELD.value : "",
+      houseNum: HOUSE_SIGNUP_FIELD.value ? HOUSE_SIGNUP_FIELD.value : "",
+      zip: ZIP_SIGNUP_FIELD.value ? ZIP_SIGNUP_FIELD.value : "",
     },
-    phone: PHONE_SIGNUP_FIELD.value,
+    phone: PHONE_SIGNUP_FIELD.value ? PHONE_SIGNUP_FIELD.value : "050-0000000",
     email: EMAIL_SIGNUP_FIELD.value,
     password: PASSWORD_SIGNUP_FIELD.value,
     isBusiness: isChecked ? true : false,
