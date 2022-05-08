@@ -13,6 +13,7 @@ import {
   CARDS_DISPLAY_MODE,
   EDIT_PIC_PAGE,
   SEARCH_BAR_CONTAINER,
+  SIGNUP_PAGE,
 } from "../services/domService.js";
 
 export const onChangePage = page => {
@@ -22,10 +23,12 @@ export const onChangePage = page => {
   EDIT_PIC_PAGE.className = "d-none";
   LOGIN_PAGE.className = "d-none";
   ERROR_PAGE.className = "d-none";
+  SIGNUP_PAGE.className = "d-none";
 
   if (page === PAGES.HOME) return (HOME_PAGE.className = "d-block");
   if (page === PAGES.ABOUT) return (ABOUT_PAGE.className = "d-block");
   if (page === PAGES.CREATE_PIC) return (CREATE_PIC_PAGE.className = "d-block");
+  if (page === PAGES.SIGN_UP) return (SIGNUP_PAGE.className = "d-block");
   if (page === PAGES.LOGIN) return (LOGIN_PAGE.className = "d-block");
   if (page === PAGES.EDIT_PIC) return (EDIT_PIC_PAGE.className = "d-block");
 

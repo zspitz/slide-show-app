@@ -5,6 +5,7 @@ export const LOGIN_PAGE_LINK = document.getElementById("login-page-link");
 export const CREATE_PIC_PAGE_LINK = document.getElementById(
   "create-pic-page-link"
 );
+export const SIGNUP_PAGE_LINK = document.getElementById("signup-page-link");
 
 /***** pages ******/
 export const HOME_PAGE = document.getElementById("home-page");
@@ -13,6 +14,7 @@ export const CREATE_PIC_PAGE = document.getElementById("create-pic-page");
 export const LOGIN_PAGE = document.getElementById("login-page");
 export const ERROR_PAGE = document.getElementById("error-404-page");
 export const EDIT_PIC_PAGE = document.getElementById("edit-pic-page");
+export const SIGNUP_PAGE = document.getElementById("signup-page");
 
 /***** Links ******/
 export const LINK_TO_HOME_PAGE = document.getElementById(
@@ -70,6 +72,75 @@ export const SUBMIT_EDIT_PIC_BTN = document.getElementById(
 );
 export const CANCELֹ_EDIT_BTN = document.getElementById("cancel-edit-pic-btn");
 export const EDIT_IMAGE_DISPLAY = document.getElementById("edit-image-display");
+
+/***** Signup Form *****/
+export const FIRST_SIGNUP_FIELD = document.getElementById(
+  "first-name-signup-field"
+);
+export const FIRST_SIGNUP_ERROR = document.getElementById(
+  "first-name-signup-error-span"
+);
+export const LAST_SIGNUP_FIELD = document.getElementById(
+  "last-name-signup-field"
+);
+export const LAST_SIGNUP_ERROR = document.getElementById(
+  "last-name-signup-error-span"
+);
+export const STATE_SIGNUP_FIELD = document.getElementById("state-signup-field");
+export const STATE_SIGNUP_ERROR = document.getElementById(
+  "state-signup-error-span"
+);
+export const COUNTRY_SIGNUP_FIELD = document.getElementById(
+  "country-signup-field"
+);
+export const COUNTRY_SIGNUP_ERROR = document.getElementById(
+  "country-signup-error-span"
+);
+export const CITY_SIGNUP_FIELD = document.getElementById("city-signup-field");
+export const CITY_SIGNUP_ERROR = document.getElementById(
+  "city-signup-error-span"
+);
+export const STREET_SIGNUP_FIELD = document.getElementById(
+  "street-signup-field"
+);
+export const STREET_SIGNUP_ERROR = document.getElementById(
+  "street-signup-error-span"
+);
+export const HOUSE_SIGNUP_FIELD = document.getElementById("house-signup-field");
+export const HOUSE_SIGNUP_ERROR = document.getElementById(
+  "house-signup-error-span"
+);
+export const ZIP_SIGNUP_FIELD = document.getElementById("zip-signup-field");
+export const ZIP_SIGNUP_ERROR = document.getElementById(
+  "zip-signup-error-span"
+);
+export const EMAIL_SIGNUP_FIELD = document.getElementById("email-signup-field");
+export const EMAIL_SIGNUP_ERROR = document.getElementById(
+  "email-signup-error-span"
+);
+export const PHONE_SIGNUP_FIELD = document.getElementById("phone-signup-field");
+export const PHONE_SIGNUP_ERROR = document.getElementById(
+  "phone-signup-error-span"
+);
+export const PASSWORD_SIGNUP_FIELD = document.getElementById(
+  "password-signup-field"
+);
+export const PASSWORD_SIGNUP_ERROR = document.getElementById(
+  "password-signup-error-span"
+);
+export const PASSWORD_RE_ENTER_SIGNUP_FIELD = document.getElementById(
+  "password-reenter-signup-field"
+);
+export const PASSWORD_RE_ENTER_SIGNUP_ERROR = document.getElementById(
+  "password-reenter-signup-error-span"
+);
+export const BIZ_SIGNUP_FIELD = document.getElementById("isBiz-signup-field");
+export const SUBMIT_BTN_SIGNUP = document.getElementById(
+  "submit-signup-user-btn"
+);
+export const CANCEL_BTN_SIGNUP = document.getElementById(
+  "cancel-signup-user-btn"
+);
 
 /***** controllers *****/
 export const TABLE_ICON = document.getElementById("table-icon");

@@ -77,6 +77,14 @@
                     <span
                       class="nav-link active cursor"
                       aria-current="page"
+                      id="signup-page-link"
+                      >Signup</span
+                    >
+                  </li>
+                  <li class="nav-item">
+                    <span
+                      class="nav-link active cursor"
+                      aria-current="page"
                       id="login-page-link"
                       >Login</span
                     >
@@ -361,13 +369,236 @@
       </div>
 
       <!-- דף התחברות -->
-      <div id="login-page" class="d-none">
-        <!-- כותרות התחברות -->
+      <div id="login-page">
+        <!-- כותרות דף התחברות -->
         <div class="center mt-4">
           <div class="col-12 col-md-10 col-xl-8">
             <h1 class="text-center display-4">LOGIN PAGE</h1>
-            <h2 class="fs-5">Login to add a new picture</h2>
+            <h2 class="fs-5">Login and start like buy and add pictures</h2>
             <hr />
+          </div>
+        </div>
+      </div>
+
+      <!-- דף הרשמה -->
+      <div id="signup-page" class="d-none">
+        <div class="bg-light">
+          <!-- כותרות הרשמה -->
+          <div class="center pt-4">
+            <div class="col-12 col-md-10 col-xl-8">
+              <h1 class="text-center display-4">SIGNUP PAGE</h1>
+              <h2 class="fs-5">Signup and start like buy and add pictures</h2>
+              <hr />
+            </div>
+          </div>
+
+          <div class="center">
+            <form class="form col-12 col-md-10 col-xl-8 border p-2 rounded">
+              <h6>Name</h6>
+              <div class="row">
+                <div class="col-12 col-md-6">
+                  <label for="first-name-signup-field"
+                    >First Name<span class="text-danger">*</span></label
+                  >
+                  <input
+                    class="form-control mb-2"
+                    type="text"
+                    name="first"
+                    id="first-name-signup-field"
+                    minlength="2"
+                    autocomplete="off"
+                    autocomplete="off"
+                  />
+                  <span
+                    id="first-name-signup-error-span"
+                    class="text-danger"
+                  ></span>
+                </div>
+                <div class="col-12 col-md-6">
+                  <label for="last-name-signup-field"
+                    >Last Name<span class="text-danger">*</span></label
+                  >
+                  <input
+                    class="form-control mb-2"
+                    type="text"
+                    name="last"
+                    id="last-name-signup-field"
+                    autocomplete="off"
+                  />
+                  <span
+                    id="last-name-signup-error-span"
+                    class="text-danger"
+                  ></span>
+                </div>
+              </div>
+              <h6>Address</h6>
+              <div class="row">
+                <div class="col-12 col-md-6 col-xl-4">
+                  <label for="state-signup-field">State</label>
+                  <input
+                    autocomplete="off"
+                    class="form-control mb-2"
+                    type="text"
+                    name="state"
+                    id="state-signup-field"
+                  />
+                  <span id="state-signup-error-span" class="text-danger"></span>
+                </div>
+                <div class="col-12 col-md-6 col-xl-4">
+                  <label for="country-signup-field">Country</label>
+                  <input
+                    autocomplete="off"
+                    class="form-control mb-2"
+                    type="text"
+                    name="country"
+                    id="country-signup-field"
+                  />
+                  <span
+                    id="country-signup-error-span"
+                    class="text-danger"
+                  ></span>
+                </div>
+                <div class="col-12 col-md-6 col-xl-4">
+                  <label for="city-signup-field">City</label>
+                  <input
+                    autocomplete="off"
+                    class="form-control mb-2"
+                    type="text"
+                    name="city"
+                    id="city-signup-field"
+                  />
+                  <span id="city-signup-error-span" class="text-danger"></span>
+                </div>
+                <div class="col-12 col-md-6 col-xl-4">
+                  <label for="street-signup-field">Street</label>
+                  <input
+                    autocomplete="off"
+                    class="form-control mb-2"
+                    type="text"
+                    name="street"
+                    id="street-signup-field"
+                  />
+                  <span
+                    id="street-signup-error-span"
+                    class="text-danger"
+                  ></span>
+                </div>
+                <div class="col-12 col-md-6 col-xl-4">
+                  <label for="house-signup-field">House Number</label>
+                  <input
+                    autocomplete="off"
+                    class="form-control mb-2"
+                    type="number"
+                    name="house"
+                    id="house-signup-field"
+                  />
+                  <span id="house-signup-error-span" class="text-danger"></span>
+                </div>
+                <div class="col-12 col-md-6 col-xl-4">
+                  <label for="zip-signup-field">Zip Code</label>
+                  <input
+                    autocomplete="off"
+                    class="form-control mb-2"
+                    type="number"
+                    name="zip"
+                    id="zip-signup-field"
+                  />
+                  <span id="zip-signup-error-span" class="text-danger"></span>
+                </div>
+              </div>
+              <h6>Means of contact</h6>
+              <div class="row">
+                <div class="col-12 col-md-6">
+                  <label for="email-signup-field"
+                    >Email<span class="text-danger">*</span></label
+                  >
+                  <input
+                    autocomplete="off"
+                    class="form-control mb-2"
+                    type="text"
+                    name="email"
+                    id="email-signup-field"
+                    minlength="2"
+                  />
+                  <span id="email-signup-error-span" class="text-danger"></span>
+                </div>
+                <div class="col-12 col-md-6">
+                  <label for="phone-signup-field">Phone</label>
+                  <input
+                    autocomplete="off"
+                    class="form-control mb-2"
+                    type="text"
+                    name="phone"
+                    id="phone-signup-field"
+                  />
+                  <span id="phone-signup-error-span" class="text-danger"></span>
+                </div>
+              </div>
+              <h6>Security</h6>
+              <div class="row">
+                <div class="col-12 col-md-6">
+                  <label for="password-signup-field"
+                    >Password<span class="text-danger">*</span></label
+                  >
+                  <input
+                    autocomplete="off"
+                    class="form-control mb-2"
+                    type="password"
+                    name="password"
+                    id="password-signup-field"
+                    minlength="2"
+                  />
+                  <span
+                    id="password-signup-error-span"
+                    class="text-danger"
+                  ></span>
+                </div>
+                <div class="col-12 col-md-6">
+                  <label for="password-reenter-signup-field"
+                    >Re-enter Password<span class="text-danger">*</span></label
+                  >
+                  <input
+                    autocomplete="off"
+                    class="form-control mb-2"
+                    type="password"
+                    name="passwordReEnter"
+                    id="password-reenter-signup-field"
+                    minlength="2"
+                  />
+                  <span
+                    id="password-reenter-signup-error-span"
+                    class="text-danger"
+                  ></span>
+                </div>
+              </div>
+              <div class="center my-2">
+                <div>
+                  <label for="isBiz-signup-field">Business Client</label>
+                  <input
+                    autocomplete="off"
+                    class="form-check-inline mb-2"
+                    type="checkbox"
+                    name="isBiz"
+                    id="isBiz-signup-field"
+                  />
+                </div>
+              </div>
+              <input
+                autocomplete="off"
+                id="submit-signup-user-btn"
+                type="button"
+                value="Submit"
+                class="btn btn-primary col-12 mb-2"
+                disabled
+              />
+              <input
+                autocomplete="off"
+                id="cancel-signup-user-btn"
+                type="button"
+                value="Cancel"
+                class="btn btn-danger col-12 mb-2"
+              />
+            </form>
           </div>
         </div>
       </div>
@@ -412,7 +643,7 @@
                   <input
                     class="form-control mb-2"
                     type="text"
-                    name="credit"
+                    name="credits"
                     id="credits-edit-pic-field"
                   />
                   <span
@@ -425,7 +656,7 @@
                   <input
                     class="form-control mb-2"
                     type="number"
-                    name="credit"
+                    name="price"
                     id="price-edit-pic-field"
                   />
                   <span
