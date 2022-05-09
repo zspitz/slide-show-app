@@ -6,6 +6,16 @@ export const CREATE_PIC_PAGE_LINK = document.getElementById(
   "create-pic-page-link"
 );
 export const SIGNUP_PAGE_LINK = document.getElementById("signup-page-link");
+export const LOGOUT_LINK = document.getElementById("logout-link");
+export const LOGIN_LINK_CONTAINER = document.getElementById(
+  "login-link-container"
+);
+export const LOGOUT_LINK_CONTAINER = document.getElementById(
+  "logout-link-container"
+);
+export const ADD_PIC_LINK_CONTAINER = document.getElementById(
+  "add-pic-link-container"
+);
 
 /***** pages ******/
 export const HOME_PAGE = document.getElementById("home-page");
@@ -141,6 +151,16 @@ export const SUBMIT_BTN_SIGNUP = document.getElementById(
 export const CANCEL_BTN_SIGNUP = document.getElementById(
   "cancel-signup-user-btn"
 );
+
+/***** login Form *****/
+export const EMAIL_LOGIN_FIELD = document.getElementById("login-email");
+export const EMAIL_LOGIN_ERROR = document.getElementById("login-email-error");
+export const PASSWORD_LOGIN_FIELD = document.getElementById("login-password");
+export const PASSWORD_LOGIN_ERROR = document.getElementById(
+  "login-password-error"
+);
+export const SUBMIT_LOGIN_BTN = document.getElementById("submit-login-btn");
+export const CANCEL_LOGIN_BTN = document.getElementById("cancel-login-btn");
 
 /***** controllers *****/
 export const TABLE_ICON = document.getElementById("table-icon");

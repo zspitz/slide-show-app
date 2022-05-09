@@ -1,4 +1,4 @@
-import { onSubmitSignupUser } from "../app.js";
+import { onSubmitLogin, onSubmitSignupUser } from "../app.js";
 import PAGES from "../models/pageModel.js";
 import User from "../models/userModel.js";
 import { onChangePage } from "../routes/router.js";
@@ -30,10 +30,17 @@ import {
   SUBMIT_BTN_SIGNUP,
   ZIP_SIGNUP_ERROR,
   ZIP_SIGNUP_FIELD,
+  EMAIL_LOGIN_FIELD,
+  EMAIL_LOGIN_ERROR,
+  PASSWORD_LOGIN_FIELD,
+  PASSWORD_LOGIN_ERROR,
+  SUBMIT_LOGIN_BTN,
+  CANCEL_LOGIN_BTN,
 } from "./domService.js";
 import useForm from "./formService.js";
+import { setItemInLocalStorage } from "./localStorageServic.js";
 
-const { onChangeInputField } = useForm({});
+const { onChangeInputField, onClearFormFields } = useForm({});
 
 /********** create user **********/
 const createUserListeners = () => {
@@ -204,7 +211,6 @@ export const handleSignupUser = () => {
 };
 
 export const onCancelSignupUser = () => {
-  const { onClearFormFields } = useForm();
   const fields = [
     FIRST_SIGNUP_FIELD,
     LAST_SIGNUP_FIELD,
@@ -262,7 +268,67 @@ export const onCreateNewUser = array => {
   user = new User(user, array);
   newArray.push(user);
 
-  console.log(newArray);
-
   return newArray;
+};
+
+/********** login user **********/
+const loginUserListeners = () => {
+  const schema = ["login-email", "login-password"];
+
+  EMAIL_LOGIN_FIELD.addEventListener("input", e =>
+    onChangeInputField(
+      schema,
+      {
+        input: e.target,
+        errorSpan: EMAIL_LOGIN_ERROR,
+        validation: { min: 2 },
+      },
+      SUBMIT_LOGIN_BTN
+    )
+  );
+
+  PASSWORD_LOGIN_FIELD.addEventListener("input", e =>
+    onChangeInputField(
+      schema,
+      {
+        input: e.target,
+        errorSpan: PASSWORD_LOGIN_ERROR,
+        validation: { min: 2 },
+      },
+      SUBMIT_LOGIN_BTN
+    )
+  );
+};
+
+export const handleLogin = () => {
+  onChangePage(PAGES.LOGIN);
+  loginUserListeners();
+  CANCEL_LOGIN_BTN.addEventListener("click", onCancelLogin);
+  SUBMIT_LOGIN_BTN.addEventListener("click", () =>
+    onSubmitLogin(EMAIL_LOGIN_FIELD.value, PASSWORD_LOGIN_FIELD.value)
+  );
+};
+
+export const onCancelLogin = () => {
+  const fields = [EMAIL_LOGIN_FIELD, PASSWORD_LOGIN_FIELD];
+  const errorSpans = [EMAIL_LOGIN_ERROR, PASSWORD_LOGIN_ERROR];
+  onClearFormFields(SUBMIT_LOGIN_BTN, fields, errorSpans);
+  onChangePage(PAGES.HOME);
+};
+
+export const onLogin = (users, email, password) => {
+  const user = users.find(user => user.email === email);
+  if (!user) {
+    PASSWORD_LOGIN_ERROR.innerHTML = "User mail or password is incorrect!";
+    throw new Error("User mail or password is incorrect!");
+  }
+  if (user.password !== password) {
+    PASSWORD_LOGIN_ERROR.innerHTML = "User mail or password is incorrect!";
+    throw new Error("User mail or password is incorrect!");
+  }
+  const { _id, isAdmin, isBusiness } = user;
+  const payload = JSON.stringify({ _id, isAdmin, isBusiness });
+
+  setItemInLocalStorage("user", payload);
+  onCancelLogin();
 };

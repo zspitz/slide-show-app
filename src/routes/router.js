@@ -14,7 +14,11 @@ import {
   EDIT_PIC_PAGE,
   SEARCH_BAR_CONTAINER,
   SIGNUP_PAGE,
+  ADD_PIC_LINK_CONTAINER,
+  LOGIN_LINK_CONTAINER,
+  LOGOUT_LINK_CONTAINER,
 } from "../services/domService.js";
+import { getItemFromLocalStorage } from "../services/localStorageServic.js";
 
 export const onChangePage = page => {
   HOME_PAGE.className = "d-none";
@@ -70,4 +74,20 @@ export const handleNoPictures = () => {
   CARDS_DISPLAY_MODE.className = "d-none";
   SEARCH_BAR_CONTAINER.className = "d-block";
   NO_DATA_CONTAINER.className = "d-block";
+};
+
+/********** Handle Navbar Links Display **********/
+export const setNavDisplay = () => {
+  ADD_PIC_LINK_CONTAINER.className = "d-none";
+  const token = getItemFromLocalStorage("user");
+  if (!token) {
+    LOGIN_LINK_CONTAINER.className = "navbar-nav";
+    LOGOUT_LINK_CONTAINER.className = "d-none";
+    return;
+  }
+  LOGIN_LINK_CONTAINER.className = "d-none";
+  LOGOUT_LINK_CONTAINER.className = "navbar-nav";
+  const user = JSON.parse(token);
+  if (user.isBusiness) return (ADD_PIC_LINK_CONTAINER.className = "nav-item");
+  ADD_PIC_LINK_CONTAINER.className = "d-none";
 };

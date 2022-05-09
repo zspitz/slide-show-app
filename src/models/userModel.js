@@ -35,7 +35,7 @@ class User {
     this.#name = this.setName(name);
     this.address = address;
     this.phone = this.checkPhone(phone);
-    this.#email = this.checkEmail(email);
+    this.#email = this.checkEmail(email, users);
     this.#password = this.checkPassword(password);
     this.#createdAt = new Date();
     this.#isAdmin = isAdmin;
@@ -81,9 +81,11 @@ class User {
     return phoneNumber;
   }
 
-  checkEmail(email) {
+  checkEmail(email, users = []) {
     if (email.match(/.+@.+\..{2,}/g) === null)
       throw new Error("Please enter a standard email");
+    const user = users.findIndex(user => user.email === email);
+    if (user !== -1) throw new Error("User is already registered!");
     return email;
   }
 

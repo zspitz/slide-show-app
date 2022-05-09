@@ -79,7 +79,7 @@ const initialData = () => {
   });
 
   const users = data.users.map((user, index, users) => {
-    return new User(user, users);
+    return new User(user);
   });
 
   return { pictures, users };

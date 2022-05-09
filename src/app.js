@@ -16,6 +16,7 @@ import {
   SORT_DOWN_ICON,
   SORT_UP_ICON,
   SEARCH_BAR,
+  LOGOUT_LINK,
 } from "./services/domService.js";
 import DISPLAY from "./models/displayModel.js";
 import PAGES from "./models/pageModel.js";
@@ -23,6 +24,7 @@ import {
   onChangePage,
   onChangeDisplayMode,
   handleNoPictures,
+  setNavDisplay,
 } from "./routes/router.js";
 import { setCounter } from "./services/sliderService.js";
 import { renderSlider } from "./components/renderSlider.js";
@@ -43,10 +45,14 @@ import {
   handleEditPic,
 } from "./services/picService.js";
 import {
+  handleLogin,
   handleSignupUser,
+  onCancelLogin,
   onCancelSignupUser,
   onCreateNewUser,
+  onLogin,
 } from "./services/userService.js";
+import { removeItemFromLocalStorage } from "./services/localStorageServic.js";
 
 /********** יצירת משתנים גלובלים **********/
 let counter = 0;
@@ -59,6 +65,35 @@ let display;
 const handleSliderPicChange = (controller = "") => {
   counter = setCounter(pictures, counter, controller);
   renderSlider(pictures, counter);
+};
+
+/********** Creating new picture **********/
+export const onSubmitPic = () => {
+  pictures = onCreateNewPic(pictures);
+  onCancelCreatePic();
+  display = handleDisplayMode(pictures, DISPLAY.TABLE);
+};
+
+/********** Edit picture **********/
+export const onSubmitEditPic = id => {
+  pictures = onEditPic(pictures, id);
+  onCancelEditPic();
+  display = handleDisplayMode(pictures, DISPLAY.TABLE);
+};
+
+/********** Creating new User **********/
+export const onSubmitSignupUser = () => {
+  users = onCreateNewUser(users);
+  onCancelSignupUser();
+  display = handleDisplayMode(pictures, DISPLAY.SLIDER);
+};
+
+/********** Login User **********/
+export const onSubmitLogin = (email, password) => {
+  onLogin(users, email, password);
+  onCancelLogin();
+  display = handleDisplayMode(pictures, DISPLAY.SLIDER);
+  setNavDisplay();
 };
 
 // Display Mode
@@ -99,27 +134,6 @@ const handleFilterPictures = e => {
   display = handleDisplayMode(newPictures, DISPLAY.CARDS);
 };
 
-/********** Creating new picture **********/
-export const onSubmitPic = () => {
-  pictures = onCreateNewPic(pictures);
-  onCancelCreatePic();
-  display = handleDisplayMode(pictures, DISPLAY.TABLE);
-};
-
-/********** Edit picture **********/
-export const onSubmitEditPic = id => {
-  pictures = onEditPic(pictures, id);
-  onCancelEditPic();
-  display = handleDisplayMode(pictures, DISPLAY.TABLE);
-};
-
-/********** Creating new User **********/
-export const onSubmitSignupUser = () => {
-  users = onCreateNewUser(users);
-  onCancelSignupUser();
-  display = handleDisplayMode(pictures, DISPLAY.SLIDER);
-};
-
 /********** liking a picture **********/
 const handleLikePic = id => {
   console.log("you liked pic num: " + id);
@@ -142,9 +156,12 @@ export const addOnEditPic = (pictures, id) => {
 HOME_PAGE_LINK.addEventListener("click", () => onChangePage(PAGES.HOME));
 ABOUT_PAGE_LINK.addEventListener("click", () => onChangePage(PAGES.ABOUT));
 CREATE_PIC_PAGE_LINK.addEventListener("click", handleCreatePic);
-LOGIN_PAGE_LINK.addEventListener("click", () => onChangePage(PAGES.LOGIN));
+LOGIN_PAGE_LINK.addEventListener("click", handleLogin);
 SIGNUP_PAGE_LINK.addEventListener("click", handleSignupUser);
-
+LOGOUT_LINK.addEventListener("click", () => {
+  removeItemFromLocalStorage("user");
+  setNavDisplay();
+});
 // לינקים לדפים
 LINK_TO_CREATE_PIC_PAGE.addEventListener("click", () =>
   onChangePage(PAGES.CREATE_PIC)
@@ -195,3 +212,4 @@ SEARCH_BAR.addEventListener("input", e => handleFilterPictures(e.target.value));
 onChangePage(PAGES.HOME);
 onChangeDisplayMode(pictures, DISPLAY.SLIDER);
 handleSliderPicChange();
+setNavDisplay();
