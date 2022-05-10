@@ -1,6 +1,6 @@
 import {
-  makeFirstLetterCapital,
   generateUniqNumber,
+  makeFirstLetterCapital,
 } from "../utils/algoMethods.js";
 
 class User {
@@ -11,19 +11,19 @@ class User {
     country: "",
     city: "",
     street: "",
-    houseNum: 0,
+    houseNumber: "",
     zip: "",
   };
-  phone;
+  #phone;
   #email;
   #password;
   #createdAt;
-  #isAdmin;
-  #isBusiness;
+  #isAdmin = false;
+  #isBusiness = false;
 
   constructor(user, users = []) {
     const {
-      name,
+      name: { first, last },
       address,
       phone,
       email,
@@ -31,33 +31,37 @@ class User {
       isBusiness,
       isAdmin = false,
     } = user;
+    const { state, country, city, street, houseNumber, zip } = address;
+    this.address = { state, country, city, street, houseNumber, zip };
     this.#id = generateUniqNumber(users, "_id");
-    this.#name = this.setName(name);
-    this.address = address;
-    this.phone = this.checkPhone(phone);
+    this.#name = this.setName(first, last);
+    this.#phone = this.checkPhone(phone);
     this.#email = this.checkEmail(email, users);
     this.#password = this.checkPassword(password);
-    this.#createdAt = new Date();
-    this.#isAdmin = isAdmin;
     this.#isBusiness = isBusiness;
+    this.#isAdmin = isAdmin;
+    this.#createdAt = new Date();
   }
 
-  generateId(array) {
-    const random = randomNumBetween(1_000_000, 9_999_999);
-    const pic = array.findIndex(pic => pic._id === random);
-    if (pic === -1) return (this.#id = random);
-    this.generateId(array);
-  }
-
-  setName({ first, last }) {
+  setName(first, last) {
     const firstName = makeFirstLetterCapital(first);
     const lastName = makeFirstLetterCapital(last);
     return `${firstName} ${lastName}`;
   }
 
-  changeStatus(user) {
+  changeBusinessStatus(user) {
     if (!user.isAdmin) return null;
     this.#isBusiness = !this.#isBusiness;
+  }
+
+  checkPhone(phoneNumber) {
+    if (
+      phoneNumber.match(/^0[0-9]{1,2}(\-?|\s?)[0-9]{3}(\-?|\s?)[0-9]{4}/g) ===
+      null
+    ) {
+      throw new Error("Please enter a valid phone number!");
+    }
+    return phoneNumber;
   }
 
   checkPassword(password) {
@@ -71,24 +75,14 @@ class User {
       );
     return password;
   }
-
-  checkPhone(phoneNumber) {
-    if (
-      phoneNumber.match(/^0[0-9]{1,2}(\-?|\s?)[0-9]{3}(\-?|\s?)[0-9]{4}/g) ===
-      null
-    )
-      throw new Error("Please enter a standard phone number");
-    return phoneNumber;
-  }
-
   checkEmail(email, users = []) {
-    if (email.match(/.+@.+\..{2,}/g) === null)
+    if (email.match(/.+@.+\..{2,}/g) === null) {
       throw new Error("Please enter a standard email");
+    }
     const user = users.findIndex(user => user.email === email);
     if (user !== -1) throw new Error("User is already registered!");
     return email;
   }
-
   get _id() {
     return this.#id;
   }
@@ -115,6 +109,9 @@ class User {
 
   get isBusiness() {
     return this.#isBusiness;
+  }
+  get phone() {
+    return this.#phone;
   }
 }
 

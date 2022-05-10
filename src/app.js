@@ -60,6 +60,7 @@ let pictures = initialData().pictures;
 let users = initialData().users;
 let display;
 
+console.log(users);
 /********** הלוגיקה **********/
 // Slider
 const handleSliderPicChange = (controller = "") => {
