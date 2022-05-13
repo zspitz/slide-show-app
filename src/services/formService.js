@@ -4,7 +4,7 @@ const useForm = () => {
 
   /********** validate term **********/
   const validateTerm = (field, validation) => {
-    let errors = [];
+    let validateErrors = [];
     const {
       regex = null,
       min = 0,
@@ -15,28 +15,34 @@ const useForm = () => {
     const input = field.value;
 
     if (input.length < +min)
-      errors.push(`This field must be at least ${min} characters long`);
+      validateErrors.push(`This field must be at least ${min} characters long`);
     if (input.length > +max)
-      errors.push(`This field cannot contain more than ${max} characters`);
+      validateErrors.push(
+        `This field cannot contain more than ${max} characters`
+      );
     if (upperCase) {
       if (input.match(/[A-Z]/g) === null)
-        errors.push(`This field must have at least one uppercase letter`);
+        validateErrors.push(
+          `This field must have at least one uppercase letter`
+        );
     }
     if (lowerCase) {
       if (input.match(/[a-z]/g) === null)
-        errors.push(`This field must have at least one lowercase letter`);
+        validateErrors.push(
+          `This field must have at least one lowercase letter`
+        );
     }
     if (regex) {
       if (input.match(regex) === null)
-        errors.push(
+        validateErrors.push(
           `The field must contain the following regulatory expression: ${regex}`
         );
     }
     if (input.match(/[^A-Za-z0-9א-ת\s!@#$%^*&_/:.-]/g))
-      errors.push("You used a forbidden sign!");
+      validateErrors.push("You used a forbidden sign!");
 
-    errors = errors.length ? errors : null;
-    return errors;
+    validateErrors = validateErrors.length ? validateErrors : null;
+    return validateErrors;
   };
 
   /********** input validation **********/
@@ -60,6 +66,7 @@ const useForm = () => {
 
   /********** handle button disabled **********/
   const onCheckErrors = (schema, btn) => {
+    console.log(data);
     const isArrayEmpty = schema.filter(key => !data[key]);
     if (isArrayEmpty.length) return btn.setAttribute("disabled", "disabled");
     const keys = Object.keys(errors);
@@ -70,7 +77,10 @@ const useForm = () => {
 
   /********** clear all form fields and errors **********/
   const onClearFormFields = (btn, fields, errorSpans) => {
-    fields.map(field => (field.value = ""));
+    fields.map(field => {
+      field.removeEventListener("input", onChangeInputField);
+      field.value = "";
+    });
     errorSpans.map(error => (error.innerHTML = ""));
     btn.setAttribute("disabled", "disabled");
     data = {};

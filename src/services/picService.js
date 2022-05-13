@@ -93,7 +93,9 @@ export const handleCreatePic = () => {
 };
 
 export const onCancelCreatePic = () => {
-  const { onClearFormFields } = useForm();
+  const { onClearFormFields, onCheckErrors } = useForm();
+  const schema = ["url", "alt", "credits", "price"];
+
   const fields = [
     URL_CREATE_PIC_FIELD,
     ALT_CREATE_PIC_FIELD,
@@ -108,6 +110,7 @@ export const onCancelCreatePic = () => {
     PRICE_CREATE_PIC_ERROR,
   ];
   onClearFormFields(SUBMIT_CREATE_PIC_BTN, fields, errorSpans);
+  onCheckErrors(schema, SUBMIT_CREATE_PIC_BTN);
   onChangePage(PAGES.HOME);
 };
 
