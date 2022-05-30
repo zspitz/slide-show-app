@@ -18,7 +18,7 @@ import {
   LOGIN_LINK_CONTAINER,
   LOGOUT_LINK_CONTAINER,
 } from "../services/domService.js";
-import { getItemFromLocalStorage } from "../services/localStorageServic.js";
+import { getItemFromLocalStorage } from "../services/localStorageService.js";
 
 export const onChangePage = page => {
   HOME_PAGE.className = "d-none";
@@ -48,15 +48,12 @@ export const onChangeDisplayMode = (pictures, display) => {
   CARDS_DISPLAY_MODE.className = "d-none";
   SEARCH_BAR_CONTAINER.className = "d-none";
 
-  if (!pictures.length) {
-    NO_DATA_CONTAINER.className = "d-block";
-    return;
-  }
+  if (!pictures.length) return (NO_DATA_CONTAINER.className = "d-block");
+
   DATA_CONTAINER.className = "d-block";
-  if (display === DISPLAY.SLIDER) {
-    SLIDER_DISPLAY_MODE.className = "d-block";
-    return;
-  }
+  if (display === DISPLAY.SLIDER)
+    return (SLIDER_DISPLAY_MODE.className = "d-block");
+
   if (display === DISPLAY.TABLE) {
     SEARCH_BAR_CONTAINER.className = "d-block";
     TABLE_DISPLAY_MODE.className = "d-block";

@@ -1,5 +1,5 @@
 const useForm = () => {
-  let data = {};
+  window.data = {};
   let errors = {};
 
   /********** validate term **********/
@@ -66,7 +66,6 @@ const useForm = () => {
 
   /********** handle button disabled **********/
   const onCheckErrors = (schema, btn) => {
-    console.log(data);
     const isArrayEmpty = schema.filter(key => !data[key]);
     if (isArrayEmpty.length) return btn.setAttribute("disabled", "disabled");
     const keys = Object.keys(errors);

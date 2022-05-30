@@ -1,4 +1,4 @@
-import { onSubmitLogin, onSubmitSignupUser } from "../app.js";
+import { handleSubmitLogin, onSubmitSignupUser } from "../app.js";
 import PAGES from "../models/pageModel.js";
 import User from "../models/userModel.js";
 import { onChangePage } from "../routes/router.js";
@@ -38,7 +38,7 @@ import {
   CANCEL_LOGIN_BTN,
 } from "./domService.js";
 import useForm from "./formService.js";
-import { setItemInLocalStorage } from "./localStorageServic.js";
+import { setItemInLocalStorage } from "./localStorageService.js";
 
 const { onChangeInputField, onClearFormFields } = useForm({});
 
@@ -303,20 +303,21 @@ const loginUserListeners = () => {
 export const handleLogin = () => {
   onChangePage(PAGES.LOGIN);
   loginUserListeners();
-  CANCEL_LOGIN_BTN.addEventListener("click", onCancelLogin);
+  CANCEL_LOGIN_BTN.addEventListener("click", handleCancelLogin);
   SUBMIT_LOGIN_BTN.addEventListener("click", () =>
-    onSubmitLogin(EMAIL_LOGIN_FIELD.value, PASSWORD_LOGIN_FIELD.value)
+    handleSubmitLogin(EMAIL_LOGIN_FIELD.value, PASSWORD_LOGIN_FIELD.value)
   );
 };
 
-export const onCancelLogin = () => {
+export const handleCancelLogin = () => {
   const fields = [EMAIL_LOGIN_FIELD, PASSWORD_LOGIN_FIELD];
   const errorSpans = [EMAIL_LOGIN_ERROR, PASSWORD_LOGIN_ERROR];
   onClearFormFields(SUBMIT_LOGIN_BTN, fields, errorSpans);
   onChangePage(PAGES.HOME);
 };
 
-export const onLogin = (users, email, password) => {
+export const onLogin = (email, password, users = []) => {
+  if (!users.length) throw new Error("You are not registered please signup!");
   const user = users.find(user => user.email === email);
   if (!user) {
     PASSWORD_LOGIN_ERROR.innerHTML = "User mail or password is incorrect!";
@@ -330,5 +331,5 @@ export const onLogin = (users, email, password) => {
   const payload = JSON.stringify({ _id, isAdmin, isBusiness });
 
   setItemInLocalStorage("user", payload);
-  onCancelLogin();
+  handleCancelLogin();
 };

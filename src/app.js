@@ -47,12 +47,12 @@ import {
 import {
   handleLogin,
   handleSignupUser,
-  onCancelLogin,
   onCancelSignupUser,
   onCreateNewUser,
   onLogin,
 } from "./services/userService.js";
-import { removeItemFromLocalStorage } from "./services/localStorageServic.js";
+import { removeItemFromLocalStorage } from "./services/localStorageService.js";
+import { handleDisplayMode } from "./services/displayModeService.js";
 
 /********** יצירת משתנים גלובלים **********/
 let counter = 0;
@@ -60,7 +60,6 @@ let pictures = initialData().pictures;
 let users = initialData().users;
 let display;
 
-console.log(users);
 /********** הלוגיקה **********/
 // Slider
 const handleSliderPicChange = (controller = "") => {
@@ -90,38 +89,25 @@ export const onSubmitSignupUser = () => {
 };
 
 /********** Login User **********/
-export const onSubmitLogin = (email, password) => {
-  onLogin(users, email, password);
-  onCancelLogin();
-  display = handleDisplayMode(pictures, DISPLAY.SLIDER);
+export const handleSubmitLogin = (email, password) => {
+  onLogin(email, password, users);
   setNavDisplay();
+  display = handleDisplayMode(pictures, DISPLAY.SLIDER);
 };
 
 // Display Mode
-const handleDisplayMode = (arrayOfPic, display) => {
-  onChangeDisplayMode(arrayOfPic, display);
-  if (display === DISPLAY.TABLE) {
-    TABLE_BODY.innerHTML = "";
-    renderTable(arrayOfPic);
-    arrayOfPic.forEach(item => {
-      addOnDelete(item._id);
-      addOnEditPic(arrayOfPic, item._id);
-    });
-    return display;
-  }
-  if (display === DISPLAY.CARDS) {
-    CARDS_CONTAINER.innerHTML = "";
-    renderCards(arrayOfPic);
-    arrayOfPic.forEach(item => {
-      addOnLikePic(item._id);
-    });
-    return display;
-  }
-  return display;
-};
+// export const handleDisplayMode = (pictures, display) => {
+//   onChangeDisplayMode(pictures, display);
+//   if (display === DISPLAY.TABLE) {
+//     TABLE_BODY.innerHTML = "";
+//     renderTable(pictures);
+//     return display;
+//   }
+//   return display;
+// };
 
 // Delete Picture
-const handleDeletePic = id => {
+export const handleDeletePic = id => {
   pictures = pictures.filter(pic => pic._id !== id);
   display = handleDisplayMode(pictures, DISPLAY.TABLE);
 };
@@ -135,23 +121,23 @@ const handleFilterPictures = e => {
   display = handleDisplayMode(newPictures, DISPLAY.CARDS);
 };
 
-/********** liking a picture **********/
-const handleLikePic = id => {
-  console.log("you liked pic num: " + id);
-};
+// /********** liking a picture **********/
+// const handleLikePic = id => {
+//   console.log("you liked pic num: " + id);
+// };
 
 /********** האזנה לאירועים ***********/
 // הוספת מאזין הפיכת התמונה למועדפת
-const addOnLikePic = id => {
-  const root = document.getElementById(`like${id}`);
-  root.addEventListener("click", () => handleLikePic(id));
-};
+// const addOnLikePic = id => {
+//   const root = document.getElementById(`like${id}`);
+//   root.addEventListener("click", () => handleLikePic(id));
+// };
 
-// הוספת מאזין לעריכת תמונה
-export const addOnEditPic = (pictures, id) => {
-  const root = document.getElementById(`edit${id}`);
-  root.addEventListener("click", () => handleEditPic(pictures, id));
-};
+// // הוספת מאזין לעריכת תמונה
+// export const addOnEditPic = (pictures, id) => {
+//   const root = document.getElementById(`edit${id}`);
+//   root.addEventListener("click", () => handleEditPic(pictures, id));
+// };
 
 // ניתוב דפים
 HOME_PAGE_LINK.addEventListener("click", () => onChangePage(PAGES.HOME));
@@ -189,11 +175,11 @@ CARDS_ICON.addEventListener(
   () => (display = handleDisplayMode(pictures, DISPLAY.CARDS))
 );
 
-// הוספת מאזין למחיקת תמונה
-const addOnDelete = id => {
-  const root = document.getElementById("delete" + id);
-  root.addEventListener("click", () => handleDeletePic(id));
-};
+// // הוספת מאזין למחיקת תמונה
+// const addOnDelete = id => {
+//   const root = document.getElementById("delete" + id);
+//   root.addEventListener("click", () => handleDeletePic(id));
+// };
 
 // מיון תמונות
 SORT_DOWN_ICON.addEventListener("click", () => {
