@@ -1,6 +1,7 @@
 import { TABLE_BODY } from "../services/domService.js";
 
 export const renderTable = pictures => {
+  TABLE_BODY.innerHTML = "";
   pictures.map((pic, index) => {
     const { _id, url, alt, credits } = pic;
     TABLE_BODY.innerHTML += `

@@ -1,6 +1,7 @@
 import { CARDS_CONTAINER } from "../services/domService.js";
 
 const renderCards = pictures => {
+  CARDS_CONTAINER.innerHTML = "";
   pictures.map(pic => {
     const { _id, url, alt, price, credits } = pic;
     CARDS_CONTAINER.innerHTML += `

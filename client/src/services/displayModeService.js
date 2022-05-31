@@ -10,21 +10,17 @@ import { handleEditPic } from "./picService.js";
 export const handleDisplayMode = (pictures, display) => {
   onChangeDisplayMode(pictures, display);
   if (display === DISPLAY.TABLE) {
-    TABLE_BODY.innerHTML = "";
     renderTable(pictures);
     pictures.forEach(item => {
       addOnDelete(item._id);
       addOnEditPic(pictures, item._id);
     });
-    return display;
   }
   if (display === DISPLAY.CARDS) {
-    CARDS_CONTAINER.innerHTML = "";
     renderCards(pictures);
     pictures.forEach(item => {
       addOnLikePic(item._id);
     });
-    return display;
   }
   return display;
 };
