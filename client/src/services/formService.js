@@ -33,15 +33,13 @@ const useForm = () => {
         );
     }
     if (regex) {
-      if (input.match(regex) === null)
-        validateErrors.push(
-          `The field must contain the following regulatory expression: ${regex}`
-        );
+      if (input.match(regex.regex) === null) validateErrors.push(regex.message);
     }
     if (input.match(/[^A-Za-z0-9א-ת\s!@#$%^*&_/:.-]/g))
       validateErrors.push("You used a forbidden sign!");
 
     validateErrors = validateErrors.length ? validateErrors : null;
+
     return validateErrors;
   };
 
@@ -51,7 +49,7 @@ const useForm = () => {
     errorSpan.innerHTML = "";
     const errorsFromField = validateTerm(input, validation);
     if (errorsFromField) {
-      errorsFromField.map(error => (errorSpan.innerHTML += error + "<br>"));
+      errorsFromField.map((error) => (errorSpan.innerHTML += error + "<br>"));
       errors[input.name] = errorsFromField;
       return;
     }
@@ -61,12 +59,12 @@ const useForm = () => {
   const onChangeInputField = (schema, element, btn) => {
     const { input, errorSpan, validation } = element;
     onValidateField(input, errorSpan, validation);
-    onCheckErrors(schema, btn);
+    onCheckErrors(btn, schema);
   };
 
   /********** handle button disabled **********/
-  const onCheckErrors = (schema, btn) => {
-    const isArrayEmpty = schema.filter(key => !data[key]);
+  const onCheckErrors = (btn, schema = []) => {
+    const isArrayEmpty = schema.filter((name) => !data[name]);
     if (isArrayEmpty.length) return btn.setAttribute("disabled", "disabled");
     const keys = Object.keys(errors);
     if (keys.length) return btn.setAttribute("disabled", "disabled");
@@ -76,11 +74,11 @@ const useForm = () => {
 
   /********** clear all form fields and errors **********/
   const onClearFormFields = (btn, fields, errorSpans) => {
-    fields.map(field => {
+    fields.map((field) => {
       field.removeEventListener("input", onChangeInputField);
       field.value = "";
     });
-    errorSpans.map(error => (error.innerHTML = ""));
+    errorSpans.map((error) => (error.innerHTML = ""));
     btn.setAttribute("disabled", "disabled");
     data = {};
     errors = {};

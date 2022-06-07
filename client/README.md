@@ -1,2 +1,3 @@
 # slide-show-app
- javascript vanila bootstrap & html project
+
+Single page application base on javascript vanilla bootstrap & html

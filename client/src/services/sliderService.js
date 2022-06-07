@@ -1,12 +1,12 @@
-export const setCounter = (array, counter, controller = "") => {
-  let newCounter;
+export const setCounter = (array, counterNum, controller = "") => {
+  let newCounter = 0;
   if (controller === "next") {
-    newCounter = counter < array.length - 1 ? counter + 1 : 0;
+    newCounter = counterNum < array.length - 1 ? counterNum + 1 : 0;
     return newCounter;
   }
   if (controller === "prev") {
-    newCounter = counter > 0 ? counter - 1 : (counter = array.length - 1);
+    newCounter = counterNum > 0 ? counterNum - 1 : array.length - 1;
     return newCounter;
   }
-  return 0;
+  return newCounter;
 };

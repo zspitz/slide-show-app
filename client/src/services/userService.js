@@ -1,8 +1,17 @@
-import { handleSubmitLogin, onSubmitSignupUser } from "../app.js";
+import useForm from "../services/formService.js";
+const { onChangeInputField, onClearFormFields } = useForm();
 import PAGES from "../models/pageModel.js";
-import User from "../models/userModel.js";
-import { onChangePage } from "../routes/router.js";
+import { onChangePage, setNavDisplay } from "../routes/router.js";
+import User from "../models/UserModel.js";
+
 import {
+  EMAIL_LOGIN_FIELD,
+  EMAIL_LOGIN_ERROR,
+  PASSWORD_LOGIN_FIELD,
+  PASSWORD_LOGIN_ERROR,
+  SUBMIT_LOGIN_BTN,
+  CANCEL_LOGIN_BTN,
+  LINK_TO_SIGNUP_PAGE,
   BIZ_SIGNUP_FIELD,
   CANCEL_BTN_SIGNUP,
   CITY_SIGNUP_ERROR,
@@ -30,19 +39,11 @@ import {
   SUBMIT_BTN_SIGNUP,
   ZIP_SIGNUP_ERROR,
   ZIP_SIGNUP_FIELD,
-  EMAIL_LOGIN_FIELD,
-  EMAIL_LOGIN_ERROR,
-  PASSWORD_LOGIN_FIELD,
-  PASSWORD_LOGIN_ERROR,
-  SUBMIT_LOGIN_BTN,
-  CANCEL_LOGIN_BTN,
 } from "./domService.js";
-import useForm from "./formService.js";
+import { handleSubmitSignup } from "../app.js";
 import { setItemInLocalStorage } from "./localStorageService.js";
 
-const { onChangeInputField, onClearFormFields } = useForm({});
-
-/********** create user **********/
+/********** Signup **********/
 const createUserListeners = () => {
   const schema = ["first", "last", "email", "password", "passwordReEnter"];
 
@@ -148,7 +149,12 @@ const createUserListeners = () => {
       {
         input: e.target,
         errorSpan: EMAIL_SIGNUP_ERROR,
-        validation: { min: 6, regex: /.+@.+\..{2,}/g },
+        validation: {
+          regex: {
+            regex: /.+@.+\..{2,}/g,
+            message: "Please enter a valid email",
+          },
+        },
       },
       SUBMIT_BTN_SIGNUP
     )
@@ -161,9 +167,10 @@ const createUserListeners = () => {
         input: e.target,
         errorSpan: PHONE_SIGNUP_ERROR,
         validation: {
-          min: 9,
-          max: 21,
-          regex: /^0[0-9]{1,2}(\-?|\s?)[0-9]{3}(\-?|\s?)[0-9]{4}/g,
+          regex: {
+            regex: /^0[0-9]{1,2}(\-?|\s?)[0-9]{3}(\-?|\s?)[0-9]{4}/g,
+            message: "Please enter a valid phone number",
+          },
         },
       },
       SUBMIT_BTN_SIGNUP
@@ -177,9 +184,12 @@ const createUserListeners = () => {
         input: e.target,
         errorSpan: PASSWORD_SIGNUP_ERROR,
         validation: {
-          min: 2,
-          regex:
-            /((?=.*\d{1})(?=.*[A-Z]{1})(?=.*[a-z]{1})(?=.*[!@#$%^&*-]{1}).{7,20})/g,
+          regex: {
+            regex:
+              /((?=.*\d{1})(?=.*[A-Z]{1})(?=.*[a-z]{1})(?=.*[!@#$%^&*-]{1}).{7,20})/g,
+            message:
+              "The password must include at least six characters uppercase and lowercase letter number and one of the following special characters: !@#$%^&*-",
+          },
         },
       },
       SUBMIT_BTN_SIGNUP
@@ -194,8 +204,12 @@ const createUserListeners = () => {
         errorSpan: PASSWORD_RE_ENTER_SIGNUP_ERROR,
         validation: {
           min: 2,
-          regex:
-            /((?=.*\d{1})(?=.*[A-Z]{1})(?=.*[a-z]{1})(?=.*[!@#$%^&*-]{1}).{7,20})/g,
+          regex: {
+            regex:
+              /((?=.*\d{1})(?=.*[A-Z]{1})(?=.*[a-z]{1})(?=.*[!@#$%^&*-]{1}).{7,20})/g,
+            message:
+              "The password must include at least six characters uppercase and lowercase letter number and one of the following special characters: !@#$%^&*-",
+          },
         },
       },
       SUBMIT_BTN_SIGNUP
@@ -203,14 +217,14 @@ const createUserListeners = () => {
   );
 };
 
-export const handleSignupUser = () => {
+export const handleSignup = () => {
   onChangePage(PAGES.SIGN_UP);
   createUserListeners();
-  CANCEL_BTN_SIGNUP.addEventListener("click", onCancelSignupUser);
-  SUBMIT_BTN_SIGNUP.addEventListener("click", onSubmitSignupUser);
+  CANCEL_BTN_SIGNUP.addEventListener("click", handleCancelSignup);
+  SUBMIT_BTN_SIGNUP.addEventListener("click", handleSubmitSignup);
 };
 
-export const onCancelSignupUser = () => {
+export const handleCancelSignup = () => {
   const fields = [
     FIRST_SIGNUP_FIELD,
     LAST_SIGNUP_FIELD,
@@ -244,7 +258,7 @@ export const onCancelSignupUser = () => {
   onChangePage(PAGES.HOME);
 };
 
-export const onCreateNewUser = array => {
+export const onSignupNewUser = array => {
   let newArray = [...array];
   const isChecked = BIZ_SIGNUP_FIELD.checked;
   let user = {
@@ -257,7 +271,7 @@ export const onCreateNewUser = array => {
       country: COUNTRY_SIGNUP_FIELD.value ? COUNTRY_SIGNUP_FIELD.value : "",
       city: CITY_SIGNUP_FIELD.value ? CITY_SIGNUP_FIELD.value : "",
       street: STREET_SIGNUP_FIELD.value ? STREET_SIGNUP_FIELD.value : "",
-      houseNum: HOUSE_SIGNUP_FIELD.value ? HOUSE_SIGNUP_FIELD.value : "",
+      houseNumber: HOUSE_SIGNUP_FIELD.value ? HOUSE_SIGNUP_FIELD.value : "",
       zip: ZIP_SIGNUP_FIELD.value ? ZIP_SIGNUP_FIELD.value : "",
     },
     phone: PHONE_SIGNUP_FIELD.value ? PHONE_SIGNUP_FIELD.value : "050-0000000",
@@ -268,45 +282,61 @@ export const onCreateNewUser = array => {
   user = new User(user, array);
   newArray.push(user);
 
+  console.log(newArray);
+
   return newArray;
 };
 
-/********** login user **********/
-const loginUserListeners = () => {
+/********** Login **********/
+export const loginListeners = () => {
   const schema = ["login-email", "login-password"];
 
-  EMAIL_LOGIN_FIELD.addEventListener("input", e =>
-    onChangeInputField(
-      schema,
-      {
-        input: e.target,
-        errorSpan: EMAIL_LOGIN_ERROR,
-        validation: { min: 2 },
+  EMAIL_LOGIN_FIELD.addEventListener("input", e => {
+    const validation = {
+      regex: {
+        regex: /.+@.+\..{2,}/g,
+        message: "Please enter a valid email",
       },
-      SUBMIT_LOGIN_BTN
-    )
-  );
+    };
 
-  PASSWORD_LOGIN_FIELD.addEventListener("input", e =>
-    onChangeInputField(
-      schema,
-      {
-        input: e.target,
-        errorSpan: PASSWORD_LOGIN_ERROR,
-        validation: { min: 2 },
+    const element = {
+      input: e.target,
+      errorSpan: EMAIL_LOGIN_ERROR,
+      validation,
+    };
+    onChangeInputField(schema, element, SUBMIT_LOGIN_BTN);
+  });
+
+  PASSWORD_LOGIN_FIELD.addEventListener("input", e => {
+    const validation = {
+      regex: {
+        regex:
+          /((?=.*\d{1})(?=.*[A-Z]{1})(?=.*[a-z]{1})(?=.*[!@#$%^&*-]{1}).{7,20})/g,
+        message:
+          "The password must include at least six characters uppercase and lowercase letter number and one of the following special characters: !@#$%^&*-",
       },
-      SUBMIT_LOGIN_BTN
-    )
-  );
+    };
+
+    const element = {
+      input: e.target,
+      errorSpan: PASSWORD_LOGIN_ERROR,
+      validation,
+    };
+    onChangeInputField(schema, element, SUBMIT_LOGIN_BTN);
+  });
 };
 
-export const handleLogin = () => {
+export const handleLogin = users => {
   onChangePage(PAGES.LOGIN);
-  loginUserListeners();
+  loginListeners();
   CANCEL_LOGIN_BTN.addEventListener("click", handleCancelLogin);
-  SUBMIT_LOGIN_BTN.addEventListener("click", () =>
-    handleSubmitLogin(EMAIL_LOGIN_FIELD.value, PASSWORD_LOGIN_FIELD.value)
-  );
+  SUBMIT_LOGIN_BTN.addEventListener("click", () => {
+    try {
+      onLogin(EMAIL_LOGIN_FIELD.value, PASSWORD_LOGIN_FIELD.value, users);
+    } catch (error) {
+      PASSWORD_LOGIN_ERROR.innerHTML = error.message;
+    }
+  });
 };
 
 export const handleCancelLogin = () => {
@@ -319,17 +349,14 @@ export const handleCancelLogin = () => {
 export const onLogin = (email, password, users = []) => {
   if (!users.length) throw new Error("You are not registered please signup!");
   const user = users.find(user => user.email === email);
-  if (!user) {
-    PASSWORD_LOGIN_ERROR.innerHTML = "User mail or password is incorrect!";
+  if (!user) throw new Error("User mail or password is incorrect!");
+  if (user.password !== password)
     throw new Error("User mail or password is incorrect!");
-  }
-  if (user.password !== password) {
-    PASSWORD_LOGIN_ERROR.innerHTML = "User mail or password is incorrect!";
-    throw new Error("User mail or password is incorrect!");
-  }
+
   const { _id, isAdmin, isBusiness } = user;
   const payload = JSON.stringify({ _id, isAdmin, isBusiness });
 
   setItemInLocalStorage("user", payload);
   handleCancelLogin();
+  setNavDisplay();
 };

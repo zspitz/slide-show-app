@@ -1,11 +1,12 @@
 /***** nav bar ******/
 export const HOME_PAGE_LINK = document.getElementById("home-link");
 export const ABOUT_PAGE_LINK = document.getElementById("about-page-link");
+export const SIGNUP_PAGE_LINK = document.getElementById("signup-page-link");
 export const LOGIN_PAGE_LINK = document.getElementById("login-page-link");
 export const CREATE_PIC_PAGE_LINK = document.getElementById(
   "create-pic-page-link"
 );
-export const SIGNUP_PAGE_LINK = document.getElementById("signup-page-link");
+
 export const LOGOUT_LINK = document.getElementById("logout-link");
 export const LOGIN_LINK_CONTAINER = document.getElementById(
   "login-link-container"
@@ -21,17 +22,14 @@ export const ADD_PIC_LINK_CONTAINER = document.getElementById(
 export const HOME_PAGE = document.getElementById("home-page");
 export const ABOUT_PAGE = document.getElementById("about-page");
 export const CREATE_PIC_PAGE = document.getElementById("create-pic-page");
-export const LOGIN_PAGE = document.getElementById("login-page");
-export const ERROR_PAGE = document.getElementById("error-404-page");
 export const EDIT_PIC_PAGE = document.getElementById("edit-pic-page");
 export const SIGNUP_PAGE = document.getElementById("signup-page");
+export const LOGIN_PAGE = document.getElementById("login-page");
+export const ERROR_PAGE = document.getElementById("error404-page");
 
 /***** Links ******/
 export const LINK_TO_HOME_PAGE = document.getElementById(
   "return-to-home-page-link"
-);
-export const LINK_TO_CREATE_PIC_PAGE = document.getElementById(
-  "goto-create-pic-page-link"
 );
 
 /***** slider ******/
@@ -152,7 +150,7 @@ export const CANCEL_BTN_SIGNUP = document.getElementById(
   "cancel-signup-user-btn"
 );
 
-/***** login Form *****/
+/***** login form *****/
 export const EMAIL_LOGIN_FIELD = document.getElementById("login-email");
 export const EMAIL_LOGIN_ERROR = document.getElementById("login-email-error");
 export const PASSWORD_LOGIN_FIELD = document.getElementById("login-password");
@@ -162,6 +160,10 @@ export const PASSWORD_LOGIN_ERROR = document.getElementById(
 export const SUBMIT_LOGIN_BTN = document.getElementById("submit-login-btn");
 export const CANCEL_LOGIN_BTN = document.getElementById("cancel-login-btn");
 
+export const LINK_TO_SIGNUP_PAGE = document.getElementById(
+  "link-to-signup-page"
+);
+
 /***** controllers *****/
 export const TABLE_ICON = document.getElementById("table-icon");
 export const SLIDER_ICON = document.getElementById("slider-icon");
@@ -169,13 +171,15 @@ export const CARDS_ICON = document.getElementById("cards-icon");
 export const SORT_DOWN_ICON = document.getElementById("sort-down-icon");
 export const SORT_UP_ICON = document.getElementById("sort-up-icon");
 
-/***** display modes *****/
+/***** display mode *****/
 export const NO_DATA_CONTAINER = document.getElementById("no-data-container");
 export const DATA_CONTAINER = document.getElementById("data-container");
-export const TABLE_DISPLAY_MODE = document.getElementById("table");
-export const SLIDER_DISPLAY_MODE = document.getElementById("slider");
-export const CARDS_DISPLAY_MODE = document.getElementById("cards");
+export const SLIDER_CONTAINER = document.getElementById("slider-container");
+export const TABLE_CONTAINER = document.getElementById("table-container");
 export const TABLE_BODY = document.getElementById("tbody");
 export const CARDS_CONTAINER = document.getElementById("cards-container");
-export const SEARCH_BAR_CONTAINER = document.getElementById("search-container");
+export const CARDS_ROW = document.getElementById("cards");
 export const SEARCH_BAR = document.getElementById("search-input");
+export const SEARCHBAR_CONTAINER = document.getElementById(
+  "search-bar-container"
+);
