@@ -28,6 +28,8 @@ import { onChangePage } from "../routes/router.js";
 import PAGES from "../models/pageModel.js";
 import { handleSubmitNewPic, onSubmitEditPic } from "../app.js";
 
+window.pic = {};
+
 const { onChangeInputField, onClearFormFields } = useForm();
 /********* Create Picture **********/
 export const handleCreatePic = () => {
@@ -40,7 +42,7 @@ export const handleCreatePic = () => {
 export const createPicFormFieldsListeners = () => {
   const schema = ["url", "alt", "credits", "price"];
 
-  URL_CREATE_PIC_FIELD.addEventListener("input", (e) => {
+  URL_CREATE_PIC_FIELD.addEventListener("input", e => {
     const validation = {
       min: 10,
       max: 256,
@@ -60,7 +62,7 @@ export const createPicFormFieldsListeners = () => {
     onChangeInputField(schema, element, SUBMIT_CREATE_PIC_BTN);
   });
 
-  ALT_CREATE_PIC_FIELD.addEventListener("input", (e) => {
+  ALT_CREATE_PIC_FIELD.addEventListener("input", e => {
     const validation = {
       min: 2,
       max: 256,
@@ -74,7 +76,7 @@ export const createPicFormFieldsListeners = () => {
     onChangeInputField(schema, element, SUBMIT_CREATE_PIC_BTN);
   });
 
-  CREDIT_CREATE_PIC_FIELD.addEventListener("input", (e) => {
+  CREDIT_CREATE_PIC_FIELD.addEventListener("input", e => {
     const validation = {
       min: 2,
       max: 256,
@@ -88,7 +90,7 @@ export const createPicFormFieldsListeners = () => {
     onChangeInputField(schema, element, SUBMIT_CREATE_PIC_BTN);
   });
 
-  PRICE_CREATE_PIC_FIELD.addEventListener("input", (e) => {
+  PRICE_CREATE_PIC_FIELD.addEventListener("input", e => {
     const validation = {
       min: 1,
       max: 256,
@@ -121,7 +123,7 @@ export const handleCancelCreateNewPic = () => {
   onChangePage(PAGES.HOME);
 };
 
-export const onCreateNewPic = (pictures) => {
+export const onCreateNewPic = pictures => {
   try {
     let newArray = [...pictures];
     const pic = new Picture(
@@ -145,7 +147,7 @@ export const onCreateNewPic = (pictures) => {
 const editPicListeners = () => {
   const schema = ["url", "alt", "credits", "price"];
   // ולידציה על שדה כתובת התמונה והצגת התמונה
-  const handleUrlEditChange = (e) => {
+  const handleUrlEditChange = e => {
     onChangeInputField(
       schema,
       {
@@ -164,9 +166,9 @@ const editPicListeners = () => {
   };
 
   // עריכת תמונה
-  URL_EDIT_PIC_FIELD.addEventListener("input", (e) => handleUrlEditChange(e));
+  URL_EDIT_PIC_FIELD.addEventListener("input", e => handleUrlEditChange(e));
 
-  ALT_EDIT_PIC_FIELD.addEventListener("input", (e) =>
+  ALT_EDIT_PIC_FIELD.addEventListener("input", e =>
     onChangeInputField(
       schema,
       {
@@ -178,7 +180,7 @@ const editPicListeners = () => {
     )
   );
 
-  CREDIT_EDIT_PIC_FIELD.addEventListener("input", (e) =>
+  CREDIT_EDIT_PIC_FIELD.addEventListener("input", e =>
     onChangeInputField(
       schema,
       {
@@ -190,7 +192,7 @@ const editPicListeners = () => {
     )
   );
 
-  PRICE_EDIT_PIC_FIELD.addEventListener("input", (e) =>
+  PRICE_EDIT_PIC_FIELD.addEventListener("input", e =>
     onChangeInputField(
       schema,
       {
@@ -207,12 +209,15 @@ export const handleEditPic = (pictures, id) => {
   onChangePage(PAGES.EDIT_PIC);
   mapToModel(pictures, id);
   editPicListeners();
+  document
+    .getElementById(`edit${id}`)
+    .removeEventListener("click", () => handleEditPic(pictures, id));
   SUBMIT_EDIT_PIC_BTN.addEventListener("click", () => onSubmitEditPic(id));
   CANCELֹ_EDIT_BTN.addEventListener("click", onCancelEditPic);
 };
 
 export const mapToModel = (pictures, id) => {
-  const pic = pictures.find((pic) => pic._id === id);
+  pic = pictures.find(pic => pic._id === id);
   if (!pic) throw new Error("Opss... there is no picture with this id: " + id);
   const { url, alt, credits, price } = pic;
   data = { url, alt, credits, price };
@@ -235,35 +240,11 @@ export const onCancelEditPic = () => {
   onChangePage(PAGES.HOME);
 };
 
-export const onEditPic = (pictures, id) => {
-  let picIndex = pictures.findIndex((pic) => pic._id === id);
-  const newPictures = [...pictures];
-  const pic = newPictures.find((pic) => pic._id === id);
-  if (!pic) throw new Error("No Picture with the given id: " + id);
+export const onEditPic = pictures => {
   pic.url = URL_EDIT_PIC_FIELD.value;
   pic.alt = ALT_EDIT_PIC_FIELD.value;
   pic.credits = CREDIT_EDIT_PIC_FIELD.value;
   pic.price = PRICE_EDIT_PIC_FIELD.value;
-
-  pictures[picIndex] = pic;
-
+  onCancelEditPic();
   return pictures;
 };
-
-// export const onEditPic = (pictures, id) => {
-//   const newPictures = [...pictures];
-//   const pic = newPictures.find((pic) => pic._id === id);
-//   if (!pic) throw new Error("No Picture with the given id: " + id);
-//   pic.url = URL_EDIT_PIC_FIELD.value;
-//   pic.alt = ALT_EDIT_PIC_FIELD.value;
-//   pic.credits = CREDIT_EDIT_PIC_FIELD.value;
-//   pic.price = PRICE_EDIT_PIC_FIELD.value;
-
-//   let picIndex = pictures.findIndex((pic) => pic._id === id);
-//   console.log(pic);
-//   console.log(pictures[picIndex]);
-
-//   pictures[picIndex] = pic;
-
-//   return pictures;
-// };
