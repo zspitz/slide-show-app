@@ -44,7 +44,7 @@ import {
 } from "./utils/algoMethods.js";
 
 let counter = 0;
-let pictures;
+export let pictures;
 let users;
 
 const getData = async () => {

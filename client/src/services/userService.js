@@ -1,9 +1,7 @@
 import useForm from "../services/formService.js";
-const { onChangeInputField, onClearFormFields } = useForm();
 import PAGES from "../models/pageModel.js";
 import { onChangePage, setNavDisplay } from "../routes/router.js";
 import User from "../models/UserModel.js";
-
 import {
   EMAIL_LOGIN_FIELD,
   EMAIL_LOGIN_ERROR,
@@ -40,8 +38,12 @@ import {
   ZIP_SIGNUP_ERROR,
   ZIP_SIGNUP_FIELD,
 } from "./domService.js";
-import { handleSubmitSignup } from "../app.js";
+import { handleSubmitSignup, pictures } from "../app.js";
 import { setItemInLocalStorage } from "./localStorageService.js";
+import { handleDisplayMode } from "./displayModeService.js";
+import DISPLAY from "../models/displayModel.js";
+
+const { onChangeInputField, onClearFormFields } = useForm();
 
 /********** Signup **********/
 const createUserListeners = () => {
@@ -344,6 +346,7 @@ export const handleCancelLogin = () => {
   const errorSpans = [EMAIL_LOGIN_ERROR, PASSWORD_LOGIN_ERROR];
   onClearFormFields(SUBMIT_LOGIN_BTN, fields, errorSpans);
   onChangePage(PAGES.HOME);
+  handleDisplayMode(DISPLAY.SLIDER, pictures);
 };
 
 export const onLogin = (email, password, users = []) => {
