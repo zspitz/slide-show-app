@@ -209,9 +209,6 @@ export const handleEditPic = (pictures, id) => {
   onChangePage(PAGES.EDIT_PIC);
   mapToModel(pictures, id);
   editPicListeners();
-  document
-    .getElementById(`edit${id}`)
-    .removeEventListener("click", () => handleEditPic(pictures, id));
   SUBMIT_EDIT_PIC_BTN.addEventListener("click", () => onSubmitEditPic(id));
   CANCELֹ_EDIT_BTN.addEventListener("click", onCancelEditPic);
 };

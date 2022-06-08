@@ -117,11 +117,9 @@ const getData = async () => {
     /********** אתחול ראשוני ***********/
     handleSliderPicChange();
     setNavDisplay();
-    // onChangePage(PAGES.EDIT_PIC);
     onChangePage(PAGES.HOME);
-    // handleDisplayMode(DISPLAY.SLIDER, pictures);
-    // handleDisplayMode(DISPLAY.CARDS, pictures);
-    handleDisplayMode(DISPLAY.TABLE, pictures);
+    handleDisplayMode(DISPLAY.SLIDER, pictures);
+    // handleDisplayMode(DISPLAY.TABLE, pictures);
   } catch (error) {
     console.log(error);
   }

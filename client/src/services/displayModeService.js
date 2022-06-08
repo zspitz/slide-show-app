@@ -14,7 +14,6 @@ export const handleDisplayMode = (display, pictures) => {
     pictures.forEach(pic => {
       addOnDelete(pic._id);
       addOnEditPic(pictures, pic._id);
-      // window.callbacks[pic._id] = addOnEditPic(pictures, pic._id);
     });
   }
   if (display === DISPLAY.CARDS) {
