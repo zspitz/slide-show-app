@@ -143,7 +143,6 @@ export const handleDeletePic = id => {
 /********** Edit picture **********/
 export const onSubmitEditPic = id => {
   pictures = onEditPic(pictures, id);
-  console.log(new Date());
   onCancelEditPic(pictures);
   handleDisplayMode(DISPLAY.TABLE, pictures);
 };

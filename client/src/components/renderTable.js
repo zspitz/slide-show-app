@@ -1,4 +1,5 @@
 import { TABLE_BODY } from "../services/domService.js";
+// import { handleEditPic } from "../services/picService.js";
 
 const renderTable = (pictures = []) => {
   TABLE_BODY.innerHTML = "";

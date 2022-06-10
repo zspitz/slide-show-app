@@ -93,13 +93,30 @@
                   </li>
                 </ul>
                 <ul id="logout-link-container" class="d-none">
-                  <li class="nav-item">
+                  <li class="nav-item dropdown">
                     <span
-                      class="nav-link active cursor"
-                      aria-current="page"
-                      id="logout-link"
-                      >Logout</span
+                      class="nav-link dropdown-toggle"
+                      data-bs-toggle="dropdown"
+                      role="button"
+                      aria-expanded="false"
                     >
+                      <i class="bi bi-person-circle"></i>
+                    </span>
+                    <ul
+                      class="dropdown-menu"
+                      style="transform: translate(-100px, 10px)"
+                    >
+                      <li>
+                        <span class="dropdown-item cursor"
+                          ><i class="bi bi-pencil-square"></i> Edit User</span
+                        >
+                      </li>
+                      <li>
+                        <span id="logout-link" class="dropdown-item cursor"
+                          ><i class="bi bi-dash-circle"></i> Logout</span
+                        >
+                      </li>
+                    </ul>
                   </li>
                 </ul>
               </div>
