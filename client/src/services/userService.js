@@ -37,11 +37,39 @@ import {
   SUBMIT_BTN_SIGNUP,
   ZIP_SIGNUP_ERROR,
   ZIP_SIGNUP_FIELD,
+  FIRST_EDITֹֹ_USER_FIELD,
+  LAST_EDIT_USER_FIELD,
+  STATE_EDIT_USER_FIELD,
+  CITY_EDIT_USER_FIELD,
+  STREET_EDIT_USER_FIELD,
+  COUNTRY_EDIT_USER_FIELD,
+  HOUSE_EDIT_USER_FIELD,
+  ZIP_EDIT_USER_FIELD,
+  EMAIL_EDIT_USER_FIELD,
+  PHONE_EDIT_USER_FIELD,
+  BIZ_EDIT_USER_FIELD,
+  FIRST_EDIT_USER_ERROR,
+  LAST_EDIT_USER_ERROR,
+  STATE_EDIT_USER_ERROR,
+  COUNTRY_EDIT_USER_ERROR,
+  CITY_EDIT_USER_ERROR,
+  STREET_EDIT_USER_ERROR,
+  HOUSE_EDIT_USER_ERROR,
+  ZIP_EDIT_USER_ERROR,
+  EMAIL_EDIT_USER_ERROR,
+  PHONE_EDIT_USER_ERROR,
+  SUBMIT_BTN_EDIT_USER,
+  CANCEL_BTN_EDIT_USER,
 } from "./domService.js";
-import { handleSubmitSignup, pictures } from "../app.js";
-import { setItemInLocalStorage } from "./localStorageService.js";
+import { handleSubmitSignup, onSubmitEditUser, pictures } from "../app.js";
+import {
+  getItemFromLocalStorage,
+  setItemInLocalStorage,
+} from "./localStorageService.js";
 import { handleDisplayMode } from "./displayModeService.js";
 import DISPLAY from "../models/displayModel.js";
+
+window.user = {};
 
 const { onChangeInputField, onClearFormFields } = useForm();
 
@@ -362,4 +390,238 @@ export const onLogin = (email, password, users = []) => {
   setItemInLocalStorage("user", payload);
   handleCancelLogin();
   setNavDisplay();
+};
+
+/********** Edit User **********/
+export const handleEditUser = users => {
+  onChangePage(PAGES.EDIT_USER);
+  const user = getItemFromLocalStorage("user");
+  const { _id } = JSON.parse(user);
+  mapToUserModel(users, _id);
+  createEditUserListeners();
+  SUBMIT_BTN_EDIT_USER.addEventListener("click", () => onSubmitEditUser(_id));
+  CANCEL_BTN_EDIT_USER.addEventListener("click", onCancelEditUser);
+};
+
+const mapToUserModel = (users, id) => {
+  const user = users.find(user => user._id === id);
+  if (!user)
+    throw new Error(
+      "Opss an error accord... there is no user with this id: " + id
+    );
+  const {
+    address: { city, country, houseNumber, state, street, zip },
+    email,
+    isBusiness,
+    name,
+    phone,
+  } = user;
+
+  const nameArray = name.split(/\s/g);
+  const first = nameArray[0];
+  const last = nameArray[1];
+
+  data = {
+    first,
+    last,
+    state,
+    country,
+    city,
+    street,
+    houseNumber,
+    zip,
+    email,
+    phone,
+  };
+
+  window.user = user;
+
+  FIRST_EDITֹֹ_USER_FIELD.value = first;
+  LAST_EDIT_USER_FIELD.value = last;
+  STATE_EDIT_USER_FIELD.value = state;
+  COUNTRY_EDIT_USER_FIELD.value = country;
+  CITY_EDIT_USER_FIELD.value = city;
+  STREET_EDIT_USER_FIELD.value = street;
+  HOUSE_EDIT_USER_FIELD.value = houseNumber;
+  ZIP_EDIT_USER_FIELD.value = zip;
+  EMAIL_EDIT_USER_FIELD.value = email;
+  PHONE_EDIT_USER_FIELD.value = phone;
+  isBusiness
+    ? (BIZ_EDIT_USER_FIELD.checked = true)
+    : (BIZ_EDIT_USER_FIELD.checked = false);
+};
+
+const createEditUserListeners = () => {
+  const schema = ["first", "last"];
+
+  FIRST_EDITֹֹ_USER_FIELD.addEventListener("input", e =>
+    onChangeInputField(
+      schema,
+      {
+        input: e.target,
+        errorSpan: FIRST_EDIT_USER_ERROR,
+        validation: { min: 2 },
+      },
+      SUBMIT_BTN_EDIT_USER
+    )
+  );
+
+  LAST_EDIT_USER_FIELD.addEventListener("input", e =>
+    onChangeInputField(
+      schema,
+      {
+        input: e.target,
+        errorSpan: LAST_EDIT_USER_ERROR,
+        validation: { min: 2 },
+      },
+      SUBMIT_BTN_EDIT_USER
+    )
+  );
+
+  STATE_EDIT_USER_FIELD.addEventListener("input", e =>
+    onChangeInputField(
+      schema,
+      {
+        input: e.target,
+        errorSpan: STATE_EDIT_USER_ERROR,
+        validation: { min: 2 },
+      },
+      SUBMIT_BTN_EDIT_USER
+    )
+  );
+
+  COUNTRY_EDIT_USER_FIELD.addEventListener("input", e =>
+    onChangeInputField(
+      schema,
+      {
+        input: e.target,
+        errorSpan: COUNTRY_EDIT_USER_ERROR,
+        validation: { min: 2 },
+      },
+      SUBMIT_BTN_EDIT_USER
+    )
+  );
+
+  CITY_EDIT_USER_FIELD.addEventListener("input", e =>
+    onChangeInputField(
+      schema,
+      {
+        input: e.target,
+        errorSpan: CITY_EDIT_USER_ERROR,
+        validation: { min: 2 },
+      },
+      SUBMIT_BTN_EDIT_USER
+    )
+  );
+
+  STREET_EDIT_USER_FIELD.addEventListener("input", e =>
+    onChangeInputField(
+      schema,
+      {
+        input: e.target,
+        errorSpan: STREET_EDIT_USER_ERROR,
+        validation: { min: 2 },
+      },
+      SUBMIT_BTN_EDIT_USER
+    )
+  );
+
+  HOUSE_EDIT_USER_FIELD.addEventListener("input", e =>
+    onChangeInputField(
+      schema,
+      {
+        input: e.target,
+        errorSpan: HOUSE_EDIT_USER_ERROR,
+        validation: { min: 1 },
+      },
+      SUBMIT_BTN_EDIT_USER
+    )
+  );
+
+  ZIP_EDIT_USER_FIELD.addEventListener("input", e =>
+    onChangeInputField(
+      schema,
+      {
+        input: e.target,
+        errorSpan: ZIP_EDIT_USER_ERROR,
+        validation: { min: 4 },
+      },
+      SUBMIT_BTN_EDIT_USER
+    )
+  );
+
+  EMAIL_EDIT_USER_FIELD.addEventListener("input", e =>
+    onChangeInputField(
+      schema,
+      {
+        input: e.target,
+        errorSpan: EMAIL_EDIT_USER_ERROR,
+        validation: {
+          regex: {
+            regex: /.+@.+\..{2,}/g,
+            message: "Please enter a valid email",
+          },
+        },
+      },
+      SUBMIT_BTN_EDIT_USER
+    )
+  );
+
+  PHONE_EDIT_USER_FIELD.addEventListener("input", e =>
+    onChangeInputField(
+      schema,
+      {
+        input: e.target,
+        errorSpan: PHONE_EDIT_USER_ERROR,
+        validation: {
+          regex: {
+            regex: /^0[0-9]{1,2}(\-?|\s?)[0-9]{3}(\-?|\s?)[0-9]{4}/g,
+            message: "Please enter a valid phone number",
+          },
+        },
+      },
+      SUBMIT_BTN_EDIT_USER
+    )
+  );
+};
+
+export const onCancelEditUser = () => {
+  const errorSpans = [
+    FIRST_EDIT_USER_ERROR,
+    LAST_EDIT_USER_ERROR,
+    STATE_EDIT_USER_ERROR,
+    COUNTRY_EDIT_USER_ERROR,
+    CITY_EDIT_USER_ERROR,
+    STREET_EDIT_USER_ERROR,
+    HOUSE_EDIT_USER_ERROR,
+    ZIP_EDIT_USER_ERROR,
+    EMAIL_EDIT_USER_ERROR,
+    PHONE_EDIT_USER_ERROR,
+  ];
+  onClearFormFields(SUBMIT_BTN_EDIT_USER, [], errorSpans);
+  onChangePage(PAGES.HOME);
+};
+
+export const onEditUser = users => {
+  const user = users.find(user => user._id === window.user._id);
+  if (!user)
+    throw new Error(
+      "Opss an error accord... there is no user with this id: " + id
+    );
+
+  user.phone = PHONE_EDIT_USER_FIELD.value;
+  user.address.state = STATE_EDIT_USER_FIELD.value;
+  user.address.country = COUNTRY_EDIT_USER_FIELD.value;
+  user.address.city = CITY_EDIT_USER_FIELD.value;
+  user.address.street = STREET_EDIT_USER_FIELD.value;
+  user.address.houseNumber = HOUSE_EDIT_USER_FIELD.value;
+  user.address.zip = ZIP_EDIT_USER_FIELD.value;
+  user.isBusiness = BIZ_EDIT_USER_FIELD.checked ? true : false;
+  user.name = {
+    first: FIRST_EDITֹֹ_USER_FIELD.value,
+    last: LAST_EDIT_USER_FIELD.value,
+  };
+
+  onCancelEditUser();
+  return users;
 };

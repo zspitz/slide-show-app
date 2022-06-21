@@ -3,6 +3,7 @@ export const HOME_PAGE_LINK = document.getElementById("home-link");
 export const ABOUT_PAGE_LINK = document.getElementById("about-page-link");
 export const SIGNUP_PAGE_LINK = document.getElementById("signup-page-link");
 export const LOGIN_PAGE_LINK = document.getElementById("login-page-link");
+export const EDIT_USER_PAGE_LINK = document.getElementById("edit-user-link");
 export const CREATE_PIC_PAGE_LINK = document.getElementById(
   "create-pic-page-link"
 );
@@ -25,6 +26,7 @@ export const CREATE_PIC_PAGE = document.getElementById("create-pic-page");
 export const EDIT_PIC_PAGE = document.getElementById("edit-pic-page");
 export const SIGNUP_PAGE = document.getElementById("signup-page");
 export const LOGIN_PAGE = document.getElementById("login-page");
+export const EDIT_USER_PAGE = document.getElementById("edit-user-page");
 export const ERROR_PAGE = document.getElementById("error404-page");
 
 /***** Links ******/
@@ -148,6 +150,77 @@ export const SUBMIT_BTN_SIGNUP = document.getElementById(
 );
 export const CANCEL_BTN_SIGNUP = document.getElementById(
   "cancel-signup-user-btn"
+);
+
+/***** Edit User Form *****/
+export const FIRST_EDITֹֹ_USER_FIELD = document.getElementById(
+  "first-name-edit-user-field"
+);
+export const FIRST_EDIT_USER_ERROR = document.getElementById(
+  "first-name-edit-user-error-span"
+);
+export const LAST_EDIT_USER_FIELD = document.getElementById(
+  "last-name-edit-user-field"
+);
+export const LAST_EDIT_USER_ERROR = document.getElementById(
+  "last-name-edit-user-error-span"
+);
+export const STATE_EDIT_USER_FIELD = document.getElementById(
+  "state-edit-user-field"
+);
+export const STATE_EDIT_USER_ERROR = document.getElementById(
+  "state-edit-user-error-span"
+);
+export const COUNTRY_EDIT_USER_FIELD = document.getElementById(
+  "country-edit-user-field"
+);
+export const COUNTRY_EDIT_USER_ERROR = document.getElementById(
+  "country-edit-user-error-span"
+);
+export const CITY_EDIT_USER_FIELD = document.getElementById(
+  "city-edit-user-field"
+);
+export const CITY_EDIT_USER_ERROR = document.getElementById(
+  "city-edit-user-error-span"
+);
+export const STREET_EDIT_USER_FIELD = document.getElementById(
+  "street-edit-user-field"
+);
+export const STREET_EDIT_USER_ERROR = document.getElementById(
+  "street-edit-user-error-span"
+);
+export const HOUSE_EDIT_USER_FIELD = document.getElementById(
+  "house-edit-user-field"
+);
+export const HOUSE_EDIT_USER_ERROR = document.getElementById(
+  "house-edit-user-error-span"
+);
+export const ZIP_EDIT_USER_FIELD = document.getElementById(
+  "zip-edit-user-field"
+);
+export const ZIP_EDIT_USER_ERROR = document.getElementById(
+  "zip-edit-user-error-span"
+);
+export const EMAIL_EDIT_USER_FIELD = document.getElementById(
+  "email-edit-user-field"
+);
+export const EMAIL_EDIT_USER_ERROR = document.getElementById(
+  "email-edit-user-error-span"
+);
+export const PHONE_EDIT_USER_FIELD = document.getElementById(
+  "phone-edit-user-field"
+);
+export const PHONE_EDIT_USER_ERROR = document.getElementById(
+  "phone-edit-user-error-span"
+);
+export const BIZ_EDIT_USER_FIELD = document.getElementById(
+  "isBiz-edit-user-field"
+);
+export const SUBMIT_BTN_EDIT_USER = document.getElementById(
+  "submit-edit-user-btn"
+);
+export const CANCEL_BTN_EDIT_USER = document.getElementById(
+  "cancel-edit-user-btn"
 );
 
 /***** login form *****/

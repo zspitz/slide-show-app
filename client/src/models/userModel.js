@@ -113,6 +113,17 @@ class User {
   get phone() {
     return this.#phone;
   }
+
+  set phone(phone) {
+    this.#phone = this.checkPhone(phone);
+  }
+  set isBusiness(biz) {
+    this.#isBusiness === biz;
+  }
+
+  set name({ first, last }) {
+    this.#name = this.setName(first, last);
+  }
 }
 
 export default User;

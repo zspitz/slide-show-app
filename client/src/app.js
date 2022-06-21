@@ -20,6 +20,7 @@ import {
   SORT_DOWN_ICON,
   SORT_UP_ICON,
   SEARCH_BAR,
+  EDIT_USER_PAGE_LINK,
 } from "./services/domService.js";
 import {
   handleCancelCreateNewPic,
@@ -30,8 +31,11 @@ import {
 } from "./services/picService.js";
 import {
   handleCancelSignup,
+  handleEditUser,
   handleLogin,
   handleSignup,
+  onCancelEditUser,
+  onEditUser,
   onSignupNewUser,
 } from "./services/userService.js";
 import { removeItemFromLocalStorage } from "./services/localStorageService.js";
@@ -77,6 +81,7 @@ const getData = async () => {
       removeItemFromLocalStorage("user");
       setNavDisplay();
     });
+    EDIT_USER_PAGE_LINK.addEventListener("click", () => handleEditUser(users));
     LINK_TO_HOME_PAGE.addEventListener("click", () => onChangePage(PAGES.HOME));
 
     // מצגת תמונות
@@ -117,6 +122,7 @@ const getData = async () => {
     /********** אתחול ראשוני ***********/
     handleSliderPicChange();
     setNavDisplay();
+    // onChangePage(PAGES.EDIT_USER);
     onChangePage(PAGES.HOME);
     handleDisplayMode(DISPLAY.SLIDER, pictures);
     // handleDisplayMode(DISPLAY.TABLE, pictures);
@@ -143,7 +149,7 @@ export const handleDeletePic = id => {
 /********** Edit picture **********/
 export const onSubmitEditPic = id => {
   pictures = onEditPic(pictures, id);
-  onCancelEditPic(pictures);
+  onCancelEditPic();
   handleDisplayMode(DISPLAY.TABLE, pictures);
 };
 
@@ -152,4 +158,11 @@ export const handleSubmitSignup = () => {
   users = onSignupNewUser(users);
   handleCancelSignup();
   onChangePage(PAGES.HOME);
+};
+
+/********** Edit picture **********/
+export const onSubmitEditUser = id => {
+  users = onEditUser(users, id);
+  onCancelEditUser();
+  handleDisplayMode(DISPLAY.SLIDER, pictures);
 };

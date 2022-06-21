@@ -107,7 +107,7 @@
                       style="transform: translate(-100px, 10px)"
                     >
                       <li>
-                        <span class="dropdown-item cursor"
+                        <span id="edit-user-link" class="dropdown-item cursor"
                           ><i class="bi bi-pencil-square"></i> Edit User</span
                         >
                       </li>
@@ -702,6 +702,211 @@
               <input
                 autocomplete="off"
                 id="cancel-signup-user-btn"
+                type="button"
+                value="Cancel"
+                class="btn btn-danger col-12 mb-2"
+              />
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- דף עריכת משתמש -->
+      <div id="edit-user-page" class="d-block">
+        <div class="bg-light">
+          <!-- כותרות הרשמה -->
+          <div class="center pt-4">
+            <div class="col-12 col-md-10 col-xl-8">
+              <h1 class="text-center display-4">EDIT USER PAGE</h1>
+              <h2 class="fs-5">Hear you can edit your profile</h2>
+              <hr />
+            </div>
+          </div>
+
+          <div class="center">
+            <form class="form col-12 col-md-10 col-xl-8 border p-2 rounded">
+              <h6>Name</h6>
+              <div class="row">
+                <div class="col-12 col-md-6">
+                  <label for="first-name-edit-user-field"
+                    >First Name<span class="text-danger">*</span></label
+                  >
+                  <input
+                    class="form-control mb-2"
+                    type="text"
+                    name="first"
+                    id="first-name-edit-user-field"
+                    minlength="2"
+                    autocomplete="off"
+                    autocomplete="off"
+                  />
+                  <span
+                    id="first-name-edit-user-error-span"
+                    class="text-danger"
+                  ></span>
+                </div>
+                <div class="col-12 col-md-6">
+                  <label for="last-name-edit-user-field"
+                    >Last Name<span class="text-danger">*</span></label
+                  >
+                  <input
+                    class="form-control mb-2"
+                    type="text"
+                    name="last"
+                    id="last-name-edit-user-field"
+                    autocomplete="off"
+                  />
+                  <span
+                    id="last-name-edit-user-error-span"
+                    class="text-danger"
+                  ></span>
+                </div>
+              </div>
+              <h6>Address</h6>
+              <div class="row">
+                <div class="col-12 col-md-6 col-xl-4">
+                  <label for="state-edit-user-field">State</label>
+                  <input
+                    autocomplete="off"
+                    class="form-control mb-2"
+                    type="text"
+                    name="state"
+                    id="state-edit-user-field"
+                  />
+                  <span
+                    id="state-edit-user-error-span"
+                    class="text-danger"
+                  ></span>
+                </div>
+                <div class="col-12 col-md-6 col-xl-4">
+                  <label for="country-edit-user-field">Country</label>
+                  <input
+                    autocomplete="off"
+                    class="form-control mb-2"
+                    type="text"
+                    name="country"
+                    id="country-edit-user-field"
+                  />
+                  <span
+                    id="country-edit-user-error-span"
+                    class="text-danger"
+                  ></span>
+                </div>
+                <div class="col-12 col-md-6 col-xl-4">
+                  <label for="city-edit-user-field">City</label>
+                  <input
+                    autocomplete="off"
+                    class="form-control mb-2"
+                    type="text"
+                    name="city"
+                    id="city-edit-user-field"
+                  />
+                  <span
+                    id="city-edit-user-error-span"
+                    class="text-danger"
+                  ></span>
+                </div>
+                <div class="col-12 col-md-6 col-xl-4">
+                  <label for="street-edit-user-field">Street</label>
+                  <input
+                    autocomplete="off"
+                    class="form-control mb-2"
+                    type="text"
+                    name="street"
+                    id="street-edit-user-field"
+                  />
+                  <span
+                    id="street-edit-user-error-span"
+                    class="text-danger"
+                  ></span>
+                </div>
+                <div class="col-12 col-md-6 col-xl-4">
+                  <label for="house-edit-user-field">House Number</label>
+                  <input
+                    autocomplete="off"
+                    class="form-control mb-2"
+                    type="number"
+                    name="house"
+                    id="house-edit-user-field"
+                  />
+                  <span
+                    id="house-edit-user-error-span"
+                    class="text-danger"
+                  ></span>
+                </div>
+                <div class="col-12 col-md-6 col-xl-4">
+                  <label for="zip-edit-user-field">Zip Code</label>
+                  <input
+                    autocomplete="off"
+                    class="form-control mb-2"
+                    type="number"
+                    name="zip"
+                    id="zip-edit-user-field"
+                  />
+                  <span
+                    id="zip-edit-user-error-span"
+                    class="text-danger"
+                  ></span>
+                </div>
+              </div>
+              <h6>Means of contact</h6>
+              <div class="row">
+                <div class="col-12 col-md-6">
+                  <label for="email-edit-user-field"
+                    >Email<span class="text-danger">*</span></label
+                  >
+                  <input
+                    autocomplete="off"
+                    class="form-control mb-2"
+                    type="text"
+                    name="email"
+                    id="email-edit-user-field"
+                    minlength="2"
+                    disabled
+                  />
+                  <span
+                    id="email-edit-user-error-span"
+                    class="text-danger"
+                  ></span>
+                </div>
+                <div class="col-12 col-md-6">
+                  <label for="phone-edit-user-field">Phone</label>
+                  <input
+                    autocomplete="off"
+                    class="form-control mb-2"
+                    type="text"
+                    name="phone"
+                    id="phone-edit-user-field"
+                  />
+                  <span
+                    id="phone-edit-user-error-span"
+                    class="text-danger"
+                  ></span>
+                </div>
+              </div>
+              <div class="center my-2">
+                <div>
+                  <label for="isBiz-edit-user-field">Business Client</label>
+                  <input
+                    autocomplete="off"
+                    class="form-check-inline mb-2"
+                    type="checkbox"
+                    name="isBiz"
+                    id="isBiz-edit-user-field"
+                  />
+                </div>
+              </div>
+              <input
+                autocomplete="off"
+                id="submit-edit-user-btn"
+                type="button"
+                value="Submit"
+                class="btn btn-primary col-12 mb-2"
+                disabled
+              />
+              <input
+                autocomplete="off"
+                id="cancel-edit-user-btn"
                 type="button"
                 value="Cancel"
                 class="btn btn-danger col-12 mb-2"

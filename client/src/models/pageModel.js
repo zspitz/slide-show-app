@@ -6,6 +6,7 @@ const PAGES = {
   LOGIN: "login-page",
   ERROR_404: "error-404",
   SIGN_UP: "signup-page",
+  EDIT_USER: "edit-user-page",
 };
 
 export default PAGES;
