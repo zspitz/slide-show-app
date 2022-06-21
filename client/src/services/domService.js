@@ -28,6 +28,9 @@ export const SIGNUP_PAGE = document.getElementById("signup-page");
 export const LOGIN_PAGE = document.getElementById("login-page");
 export const EDIT_USER_PAGE = document.getElementById("edit-user-page");
 export const ERROR_PAGE = document.getElementById("error404-page");
+export const PIC_DETAILS_PAGE = document.getElementById(
+  "pic-details-container"
+);
 
 /***** Links ******/
 export const LINK_TO_HOME_PAGE = document.getElementById(

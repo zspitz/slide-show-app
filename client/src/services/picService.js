@@ -27,6 +27,7 @@ import useForm from "../services/formService.js";
 import { onChangePage } from "../routes/router.js";
 import PAGES from "../models/pageModel.js";
 import { handleSubmitNewPic, onSubmitEditPic } from "../app.js";
+import { renderPic } from "../components/renderPic.js";
 
 window.pic = {};
 
@@ -144,6 +145,7 @@ export const onCreateNewPic = pictures => {
 };
 
 /********* Edit Picture **********/
+
 const editPicListeners = () => {
   const schema = ["url", "alt", "credits", "price"];
   // ולידציה על שדה כתובת התמונה והצגת התמונה
@@ -244,4 +246,10 @@ export const onEditPic = pictures => {
   pic.price = PRICE_EDIT_PIC_FIELD.value;
   onCancelEditPic();
   return pictures;
+};
+
+/*********  Picture Details **********/
+export const handlePicDetails = pic => {
+  onChangePage(PAGES.PIC_DETAILS);
+  renderPic(pic);
 };

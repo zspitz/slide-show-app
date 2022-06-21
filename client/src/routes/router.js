@@ -18,6 +18,7 @@ import {
   EDIT_PIC_PAGE,
   SEARCHBAR_CONTAINER,
   EDIT_USER_PAGE,
+  PIC_DETAILS_PAGE,
 } from "../services/domService.js";
 import { getItemFromLocalStorage } from "../services/localStorageService.js";
 
@@ -26,6 +27,7 @@ export const onChangePage = page => {
   ABOUT_PAGE.className = "d-none";
   CREATE_PIC_PAGE.className = "d-none";
   EDIT_PIC_PAGE.className = "d-none";
+  PIC_DETAILS_PAGE.className = "d-none";
   SIGNUP_PAGE.className = "d-none";
   LOGIN_PAGE.className = "d-none";
   EDIT_USER_PAGE.className = "d-none";
@@ -35,6 +37,8 @@ export const onChangePage = page => {
   if (page === PAGES.ABOUT) return (ABOUT_PAGE.className = "d-block");
   if (page === PAGES.CREATE_PIC) return (CREATE_PIC_PAGE.className = "d-block");
   if (page === PAGES.EDIT_PIC) return (EDIT_PIC_PAGE.className = "d-block");
+  if (page === PAGES.PIC_DETAILS)
+    return (PIC_DETAILS_PAGE.className = "d-block");
   if (page === PAGES.SIGN_UP) return (SIGNUP_PAGE.className = "d-block");
   if (page === PAGES.EDIT_USER) return (EDIT_USER_PAGE.className = "d-block");
   if (page === PAGES.LOGIN) return (LOGIN_PAGE.className = "d-block");
