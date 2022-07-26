@@ -12,7 +12,7 @@
 
 [שלב ד: ניתוב דפים](04/README.md)  
 
-חזרות: objects, functions, events
+חזרות: objects, functions, events  
 תנאי מקדים: modules, SPA
 
 שיעור 3:
